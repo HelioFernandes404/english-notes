@@ -20,3 +20,16 @@ Projeto para notas de aulas particulares de inglês com João.
 
 - Aulas: `aula-01-28-07.md`, `aula-02-04-08.md`
 - Simples, sem filler, direto ao ponto.
+
+## NotebookLM
+
+Todas aulas sincronizam com notebook único no NotebookLM: **"All Might English"** (ID: `f20883a9-bb2e-4db0-aa7b-9ab1e8f3f2d0`).
+
+- Local (`lessons/*.md`) é a fonte de verdade / cópia de trabalho.
+- Após criar/editar arquivo de aula, adicionar como source no NotebookLM:
+  ```
+  notebooklm use f20883a9
+  notebooklm source add lessons/aula-XX-DD-MM.md
+  ```
+- `english-class.ipynb` é o notebook mestre local (cópia consolidada de todas aulas, vocab, gramática).
+- CLI instalada via `uv tool install "notebooklm-py[browser]"`. Skill em `~/.claude/skills/notebooklm`.

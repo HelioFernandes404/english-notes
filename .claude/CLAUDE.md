@@ -31,5 +31,4 @@ Todas aulas sincronizam com notebook único no NotebookLM: **"All Might English"
   notebooklm use f20883a9
   notebooklm source add lessons/aula-XX-DD-MM.md
   ```
-- `english-class.ipynb` é o notebook mestre local (cópia consolidada de todas aulas, vocab, gramática).
 - CLI instalada via `uv tool install "notebooklm-py[browser]"`. Skill em `~/.claude/skills/notebooklm`.

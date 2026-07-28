@@ -32,3 +32,14 @@ Todas aulas sincronizam com notebook único no NotebookLM: **"All Might English"
   notebooklm source add lessons/aula-XX-DD-MM.md
   ```
 - CLI instalada via `uv tool install "notebooklm-py[browser]"`. Skill em `~/.claude/skills/notebooklm`.
+
+### Usar NotebookLM pra revisar conteúdo
+
+Tutor personalizado configurado pra responder dúvidas baseado nas notas de aula:
+
+```
+notebooklm use f20883a9
+notebooklm ask "sua dúvida aqui"
+```
+
+Persona customizada: tutor amigável que cita as notas de aula, complementa com conhecimento geral, aponta padrões de aprendizado.

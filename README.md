@@ -6,5 +6,3 @@ Notas de aulas particulares de inglês com João.
 
 - `lessons/` — aulas por data
 - `vocabulary.md` — palavras aprendidas
-- `grammar-tips.md` — regras/explicações
-- `doubts.md` — dúvidas pendentes

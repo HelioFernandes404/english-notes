@@ -3,4 +3,4 @@
 
 ## Estrutura
 
-- `{aula-numec-lasson-mm-dd}/` — aulas por data
+- `{number}-{date}.md` — aula específica

@@ -1,0 +1,17 @@
+{
+  "name": "english-study-notebook",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Caderno de inglês em HTML e Tailwind CSS, gerado a partir das aulas em Markdown.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/serve.mjs",
+    "test": "node scripts/check-growth.mjs"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.1.12",
+    "tailwindcss": "4.1.12",
+    "marked": "15.0.12"
+  }
+}

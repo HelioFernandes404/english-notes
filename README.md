@@ -29,6 +29,6 @@ Para pedir essa atualização a um agente, use `$atualizar-caderno-ingles` ou di
 
 Para uma prévia local opcional, execute `npm run dev` e abra o endereço informado. Não é necessário manter um servidor para usar o arquivo HTML.
 
-`prompt/prompt.md` contém orientações de tutoria, não uma aula; por isso não aparece no índice. As atividades externas mencionadas nas notas (Notion e “Emma's story”) não foram inventadas ou importadas. Os rascunhos originais podem conter imprecisões; consulte a revisão antes de memorizá-los.
+`prompt/prompt.md` contém orientações de tutoria, não uma aula; por isso não aparece no índice. A página do Notion **“It Wasn’t My Day”**, incluindo “Emma's story” e o exercício de Past Simple, foi convertida para o material de apoio D. Os rascunhos originais podem conter imprecisões; consulte a revisão antes de memorizá-los.
 
 Tailwind CSS é compilado localmente conforme a [documentação oficial](https://tailwindcss.com/docs/installation/tailwind-cli). Não há CDN, chamadas de API ou armazenamento remoto.

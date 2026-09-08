@@ -479,7 +479,7 @@ O inglês é uma língua **germânica**. O inglês antigo se desenvolveu a parti
 
 Percentuais de origem do vocabulário dependem do dicionário e do método de contagem.
 
-A leitura **“Emma's story”** foi indicada como tarefa, mas o texto não está entre os arquivos disponíveis.
+A leitura **“Emma's story”** está no material de apoio **“It Wasn’t My Day”**, com o texto original e a atividade de Past Simple.
 `,
     review: 'Escreva três frases sobre uma conquista no trabalho. Diga quando aconteceu e o que você fez depois.',
     correction: 'Prefira “at the weekend” (britânico), “on the weekend” (americano) ou “over the weekend”, em vez de “at my weekend”. Search for também pode significar procurar.'
@@ -548,7 +548,7 @@ A duplicação depende também da **tonicidade** e da terminação: **prefer →
 
 **Eat → ate → eaten**. Para narrar uma ação no Past Simple, use **ate**: “I ate breakfast at seven.” **Eaten** é o particípio, usado em outras construções.
 
-A atividade complementar de Past Simple foi indicada no Notion, mas seu enunciado não está nestes arquivos.
+O exercício complementar de Past Simple está no material de apoio **“It Wasn’t My Day”**.
 `,
     review: 'Conte como foi sua última entrega. Use um verbo regular, dois irregulares, uma negativa com didn’t e uma pergunta com did.',
     correction: 'A regra não é simplesmente was = singular / were = plural: “you were” vale também para uma pessoa. Nem todo verbo CVC dobra a consoante.'
@@ -624,5 +624,85 @@ O quadro de conjugação deve ser lido assim: **I/you/we/they + base**, **he/she
 `,
     correction: 'As respostas e rasuras originais estão preservadas abaixo. Para um modelo de parágrafo revisado, consulte a aula 09.', showOriginal: true,
     related: ['aula-07', 'aula-08', 'aula-09']
+  },
+  {
+    id: 'material-it-wasnt-my-day', number: 'D', date: '01 SET 2026', shortDate: '01/09', group: 'apoio',
+    title: 'It Wasn’t My Day', nav: 'It Wasn’t My Day', description: 'Ler uma história sobre um dia difícil e praticar afirmativas, negativas, perguntas e verbos no Past Simple.',
+    tags: ['Grammar', 'Reading', 'Speaking', 'Writing'], source: 'conteudo-das-aulas/it-wasnt-my-day.md',
+    takeaway: 'No passado, afirmativas usam V2; depois de did ou didn’t, use V1. Com be, use was ou were.',
+    content: `## O foco da atividade
+
+A aula combina uma narrativa curta com exercícios de **Past Simple**. O objetivo é reconhecer ações concluídas, organizar uma sequência de eventos e escolher entre formas regulares, irregulares, **did/didn’t** e **was/were**.
+
+## Um dia para lembrar
+
+A ideia do título é um dia que começou mal, mas terminou bem: **It wasn’t my day** pode transmitir “não era o meu dia” ou “as coisas não estavam dando certo para mim”.
+
+Na história de Emma, observe os marcadores de sequência:
+
+- **First** — primeiro.
+- **Then** — depois / então.
+- **At lunchtime** — na hora do almoço.
+- **Suddenly** — de repente.
+- **After work** — depois do trabalho.
+- **Finally** — finalmente.
+- **In the end** — no fim.
+
+> Two days ago, I **had** a really crazy day. First, I **woke up** late and **missed** my bus. I felt stressed because I **was** late for work. Then, I **arrived** at work without my phone.
+>
+> At lunchtime, I **went** to a café and **tried** sushi with a colleague. Suddenly, I **saw** my favourite singer there! We **were** very surprised and **took** a photo. After work, I **met** two friends. We **talked** and **laughed** together. Finally, I **found** a £20 note in my jacket pocket and **forgot** about it.
+
+## Past Simple: três estruturas
+
+| Forma | Estrutura | Exemplo |
+| --- | --- | --- |
+| Afirmativa | sujeito + V2 | I **had** my phone. |
+| Negativa | sujeito + **didn’t** + V1 | I **didn’t have** my phone. |
+| Pergunta | **Did** + sujeito + V1? | **Did** I **have** my phone? |
+
+Depois de **did** ou **didn’t**, o verbo volta à forma base: **Did you go?**, não “Did you went?”.
+
+Com o verbo **be**, não use **did**. Use **was** com I/he/she/it e **were** com you/we/they: “I **was** late.” / “We **were** surprised.”
+
+## Como formar os verbos regulares
+
+| Padrão | Regra | Exemplo |
+| --- | --- | --- |
+| Maioria dos verbos | + -ed | miss → missed; play → played |
+| Final -e | + -d | arrive → arrived |
+| Consoante + y | y → -ied | try → tried; cry → cried |
+| CVC, em padrões específicos | dobrar a consoante final + -ed | plan → planned; stop → stopped |
+
+**CVC** significa **Consonant + Vowel + Consonant**: consoante + vogal + consoante. A duplicação também depende da tonicidade e da terminação; não aplique a regra automaticamente a todo verbo curto.
+
+## Gabarito do exercício
+
+1. **finished**, **sent**
+2. **found**, **was**
+3. **came**, **wrote**
+4. **lost**, **got**
+5. **gave**, **felt**
+6. **woke up**, **forgot**, **realised**
+7. **passed**, **ate out**
+8. **carried**, **studied**, **played**
+9. **got**, **called**
+10. **went**, **visited**
+
+## Vocabulário para revisar
+
+| Inglês | Português |
+| --- | --- |
+| anniversary | aniversário de evento ou data comemorativa |
+| birthday | aniversário de nascimento |
+| airplane | avião |
+| flight | voo |
+| promotion | promoção no trabalho |
+| raise | aumento salarial |
+| reach | alcançar |
+| where | onde |
+| were | era/estava; éramos/estávamos; eram/estavam |
+`,
+    correction: 'No texto inicial, prefira “I was looking for a promotion”, “I got a promotion” e “over the weekend” (ou “at the weekend”/“on the weekend”). Em “did/didn’t”, use a forma base; com be, use was/were.', showOriginal: true,
+    related: ['aula-10', 'aula-11']
   }
 ];

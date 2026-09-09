@@ -11,6 +11,7 @@ const slug = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLow
 const iconPaths = {
   book: '<path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1m0-14c3-2 6-2 9-1v14c-3-1-6-1-9 1V6Z"/>',
   print: '<path d="M6 9V3h12v6M6 18H3V9h18v9h-3M6 14h12v7H6z"/><path d="M17 12h1"/>',
+  copy: '<rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3"/>',
   menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
   close: '<path d="m6 6 12 12M6 18 18 6"/>',
   expand: '<path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/>',
@@ -112,14 +113,33 @@ const rendered = await Promise.all(lessons.map(async (lesson, index) => {
   const group = groups.find(group => group.id === lesson.group);
   const toc = [];
   const body = renderMarkdown(lesson.content, lesson.id, toc);
-  const original = renderMarkdown(normalizeNotes(await readFile(join(root, lesson.source), 'utf8')), `${lesson.id}-original`);
+  const sourceMarkdown = await readFile(join(root, lesson.source), 'utf8');
+  const original = renderMarkdown(normalizeNotes(sourceMarkdown), `${lesson.id}-original`);
   const label = lesson.group === 'apoio' ? `Material ${lesson.number}` : `Aula ${lesson.number}`;
   const related = lesson.related?.map(id => lessons.find(lesson => lesson.id === id)) || [];
-  let references = '';
-  if (lesson.id === 'aula-11') references = '<p class="references">Consulta: <a href="https://learnenglish.britishcouncil.org/free-resources/grammar/english-grammar-reference/past-simple" target="_blank" rel="noreferrer">British Council · Past simple</a>.</p>';
-  if (['aula-03', 'aula-04', 'material-preposicoes'].includes(lesson.id)) references = '<p class="references">Consulta: <a href="https://learnenglish.britishcouncil.org/grammar/a1-a2-grammar/prepositions-of-time-at-in-on" target="_blank" rel="noreferrer">British Council · Prepositions of time</a>.</p>';
+  let reference;
+  if (lesson.id === 'aula-11') reference = { title: 'British Council · Past simple', url: 'https://learnenglish.britishcouncil.org/free-resources/grammar/english-grammar-reference/past-simple' };
+  if (['aula-03', 'aula-04', 'material-preposicoes'].includes(lesson.id)) reference = { title: 'British Council · Prepositions of time', url: 'https://learnenglish.britishcouncil.org/grammar/a1-a2-grammar/prepositions-of-time-at-in-on' };
+  const references = reference ? `<p class="references">Consulta: <a href="${reference.url}" target="_blank" rel="noreferrer">${reference.title}</a>.</p>` : '';
+  // Keep the Markdown in the standalone HTML so copying also works offline.
+  const markdown = [
+    `# ${lesson.title}`,
+    `${label} · ${lesson.date} · ${group.title}`,
+    lesson.description,
+    `Tags: ${lesson.tags.join(', ')}`,
+    `## Para guardar\n\n${lesson.takeaway}`,
+    lesson.content.trim(),
+    lesson.review ? `## Agora, com as suas palavras\n\n${lesson.review}` : '',
+    lesson.correction ? `## Atenção na revisão\n\n${lesson.correction}` : '',
+    '## Anotações originais',
+    'Registro da aula, com rascunhos e respostas da época. Consulte os ajustes da revisão acima.',
+    `Fonte: ${lesson.source}`,
+    sourceMarkdown.trim(),
+    reference ? `Consulta: [${reference.title}](${reference.url}).` : '',
+  ].filter(Boolean).join('\n\n') + '\n';
   const adjacentLink = (item, next) => `<a class="page-nav-link${next ? ' next' : ''}" href="#${item.id}">${!next ? icon('back') : ''}<div><small>${next ? 'Próxima página' : 'Página anterior'}</small><p>${item.number} · ${escape(item.nav)}</p></div>${next ? icon('arrow') : ''}</a>`;
   return `<section class="lesson-pane" id="${lesson.id}" data-title="${escape(lesson.title)}" data-label="${label}" data-group="${escape(group.title)}"${index ? ' hidden' : ''} aria-labelledby="${lesson.id}-title">
+  <script type="application/json" class="lesson-markdown">${JSON.stringify(markdown).replace(/</g, '\\u003c')}</script>
   <div class="lesson-layout">
     <article class="paper">
       <header class="paper-header"><div class="lesson-kicker">${label.toUpperCase()} <span class="mx-1 text-slate-300">/</span> ${lesson.date}</div><h1 id="${lesson.id}-title" class="lesson-title" tabindex="-1">${escape(lesson.title)}</h1><p class="description">${escape(lesson.description)}</p><div class="mt-5 flex flex-wrap items-center gap-2">${lesson.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}<span class="ml-auto flex items-center gap-1.5 text-xs text-muted">${icon('book')} ${lesson.group === 'apoio' ? 'Atividades da aula' : 'Revisão da aula'}</span></div></header>

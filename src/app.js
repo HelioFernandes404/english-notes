@@ -7,10 +7,74 @@
   const closeButton = document.getElementById('close-menu');
   const fullscreenButton = document.getElementById('fullscreen-button');
   const viewStatus = document.getElementById('view-status');
+  const copyButton = document.getElementById('copy-button');
+  const copyLabel = document.getElementById('copy-label');
+  const copyStatus = document.getElementById('copy-status');
   const media = window.matchMedia('(max-width: 959px)');
   let menuOpen = false;
   let fullscreenMode = false;
   let fullscreenPending = false;
+  let copyFeedbackTimer;
+
+  function copyWithSelection(markdown) {
+    const focused = document.activeElement;
+    const selection = window.getSelection();
+    const ranges = selection ? Array.from({ length: selection.rangeCount }, (_, index) => selection.getRangeAt(index).cloneRange()) : [];
+    const field = document.createElement('textarea');
+    field.value = markdown;
+    field.readOnly = true;
+    field.className = 'clipboard-field';
+    field.setAttribute('aria-label', 'Markdown da página atual');
+    document.body.append(field);
+    try {
+      field.focus({ preventScroll: true });
+      field.select();
+      if (!document.execCommand('copy')) throw new Error('Cópia indisponível.');
+    } finally {
+      field.remove();
+      focused?.focus({ preventScroll: true });
+      if (selection) {
+        selection.removeAllRanges();
+        ranges.forEach(range => selection.addRange(range));
+      }
+    }
+  }
+
+  async function copyPageMarkdown() {
+    if (copyButton.disabled) return;
+    const page = pages.find(item => !item.hidden);
+    const markdown = JSON.parse(page.querySelector('.lesson-markdown').textContent);
+    const focused = document.activeElement;
+    clearTimeout(copyFeedbackTimer);
+    copyStatus.textContent = '';
+    copyStatus.removeAttribute('data-error');
+    copyButton.disabled = true;
+    copyLabel.textContent = 'Copiando…';
+    try {
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(markdown);
+        } catch {
+          copyWithSelection(markdown);
+        }
+      } else {
+        copyWithSelection(markdown);
+      }
+      copyLabel.textContent = 'Copiado!';
+      copyStatus.textContent = `Página copiada em Markdown (${page.dataset.label}). Anotações originais incluídas.`;
+    } catch {
+      copyLabel.textContent = 'Tentar novamente';
+      copyStatus.dataset.error = 'true';
+      copyStatus.textContent = 'Não foi possível copiar. Verifique a permissão de cópia do navegador e tente novamente.';
+    } finally {
+      copyButton.disabled = false;
+      if (focused === copyButton && document.activeElement === document.body) copyButton.focus({ preventScroll: true });
+      copyFeedbackTimer = setTimeout(() => {
+        copyLabel.textContent = 'Copiar Markdown';
+        copyStatus.textContent = '';
+      }, 5000);
+    }
+  }
 
   function updateBreadcrumb() {
     const page = pages.find(item => !item.hidden);
@@ -130,6 +194,7 @@
     }
   });
   fullscreenButton.addEventListener('click', toggleFullscreen);
+  copyButton.addEventListener('click', copyPageMarkdown);
   document.addEventListener('fullscreenchange', () => {
     const active = Boolean(document.fullscreenElement);
     setFullscreenMode(active, !active);
@@ -140,4 +205,5 @@
   document.getElementById('print-button').addEventListener('click', () => window.print());
   showPage(true);
   fullscreenButton.hidden = false;
+  copyButton.hidden = false;
 })();

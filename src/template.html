@@ -32,6 +32,7 @@
         <p class="truncate text-sm"><span class="breadcrumb-prefix"><span class="text-muted">Meu caderno</span><span class="mx-3 text-slate-300" aria-hidden="true">/</span></span><span class="font-medium" id="breadcrumb">Primeiros passos</span></p>
       </div>
       <div class="topbar-actions flex shrink-0 items-center gap-2">
+        <button id="copy-button" type="button" aria-label="Copiar a página atual em Markdown" title="Copiar a página atual em Markdown" class="copy-button flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium transition hover:border-accent hover:text-accent" hidden>{{icon-copy}}<span id="copy-label">Copiar Markdown</span></button>
         <button id="fullscreen-button" type="button" aria-label="Entrar em tela cheia" aria-pressed="false" title="Entrar em tela cheia" class="fullscreen-button flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium transition hover:border-accent hover:text-accent" hidden><span class="fullscreen-enter">{{icon-expand}}</span><span class="fullscreen-exit" hidden>{{icon-collapse}}</span><span id="fullscreen-label">Tela cheia</span><kbd class="fullscreen-hint" aria-hidden="true" hidden>Esc</kbd></button>
         <button id="print-button" aria-label="Imprimir a aula atual" class="print-button flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium transition hover:border-accent hover:text-accent">{{icon-print}}<span>Imprimir aula</span></button>
       </div>
@@ -44,6 +45,7 @@
   </div>
   <div class="sr-only" role="status" id="reading-status" aria-live="polite"></div>
   <div class="sr-only" role="status" id="view-status" aria-live="polite"></div>
+  <div class="copy-status" role="status" id="copy-status" aria-live="polite" aria-atomic="true"></div>
   <noscript><style>.lesson-pane{display:block!important}.mobile-open,.mobile-close,.print-button{display:none}.sidebar{position:static;width:auto;max-height:none}.sidebar-nav{max-height:none}.sidebar-footer{display:none}.workspace{margin-left:0}.topbar{position:static}.reading-toc{display:none}.mobile-shade{display:none!important}</style></noscript>
   <script>/* NOTEBOOK_SCRIPT */</script>
 </body>

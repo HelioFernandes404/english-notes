@@ -47,6 +47,10 @@
   .icon { width: 19px; height: 19px; flex-shrink: 0; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; fill: none; }
   .icon-button { display: grid; place-items: center; min-height: 44px; min-width: 44px; border-radius: 8px; }
   .icon-button:hover { background: #718b7b1a; }
+  .topbar-actions button { min-height: 44px; }
+  .fullscreen-button[aria-pressed=true] { background: #f0f6e9; border-color: #b8cfae; color: var(--color-accent); }
+  .fullscreen-button:disabled { cursor: wait; }
+  .fullscreen-hint { padding: 1px 5px; border: 1px solid #cbdcc3; border-radius: 4px; color: #657568; font: 400 .6875rem/1.5 var(--font-sans); }
   .mobile-open, .mobile-close { display: none; }
   .main-content { max-width: 1380px; margin: auto; padding: 32px 48px 24px; outline: none; }
   .notebook-overline { margin-bottom: 25px; }
@@ -126,6 +130,20 @@
   .references a { text-decoration: underline; text-underline-offset: 3px; }
 }
 
+@media screen {
+  .is-fullscreen { background: var(--color-canvas); }
+  .is-fullscreen .sidebar { width: min(320px, 86vw); transform: translateX(-100%); transition: transform .2s; }
+  .is-fullscreen .sidebar.is-open { transform: translateX(0); box-shadow: 15px 0 40px #122e2933; }
+  .is-fullscreen .workspace { margin-left: 0; min-height: 100dvh; }
+  .is-fullscreen .mobile-open, .is-fullscreen .mobile-close { display: grid; }
+  .is-fullscreen .mobile-shade { position: fixed; inset: 0; background: #112b2366; backdrop-filter: blur(2px); z-index: 35; }
+  .is-fullscreen .topbar { min-height: 64px; }
+  .is-fullscreen .topbar-book, .is-fullscreen .breadcrumb-prefix,
+  .is-fullscreen .notebook-overline, .is-fullscreen .reading-toc, .is-fullscreen .page-footer { display: none; }
+  .is-fullscreen .main-content { max-width: 1040px; }
+  .is-fullscreen .lesson-layout { grid-template-columns: minmax(0, 1fr); }
+}
+
 @media (max-width: 1279px) {
   .lesson-layout { grid-template-columns: minmax(0, 1fr); }
   .reading-toc { display: none; }
@@ -151,7 +169,10 @@
   .takeaway { padding: 17px; }
   .prose h2 { font-size: 1.2rem; }
   .print-button span { display: none; }
-  .print-button { min-width: 44px; min-height: 44px; justify-content: center; }
+  .fullscreen-button #fullscreen-label, .fullscreen-button .fullscreen-hint, .breadcrumb-prefix { display: none; }
+  .print-button, .fullscreen-button { min-width: 44px; min-height: 44px; justify-content: center; }
+  .topbar { gap: 8px; padding-inline: 12px; }
+  .topbar-actions { gap: 6px; }
   .page-nav-link { padding: 15px 12px; gap: 7px; }
   .page-nav-link p { font-size: .8125rem; }
   .page-navigation { gap: 10px; }

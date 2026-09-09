@@ -6,6 +6,8 @@ O caderno reúne as aulas de `presente/` e `passado/` e os materiais de apoio de
 
 Use o índice para mudar de página, os links “Nesta página” para navegar nas telas maiores e “Imprimir aula” para imprimir ou salvar a página atual em PDF. A impressão inclui as anotações originais quando essa seção estiver aberta. Sem JavaScript, o conteúdo inteiro fica disponível em sequência.
 
+Use **Tela cheia**, no topo, para ampliar a leitura da aula. O índice fica disponível pelo botão de menu; a navegação entre páginas e a impressão continuam acessíveis. Para voltar, clique em **Sair da tela cheia** ou pressione **Esc**. Se o navegador não permitir tela cheia, a aula usa a visualização ampliada dentro da própria janela. No celular, os botões aparecem como ícones.
+
 ## Atualizar o caderno
 
 Requer Node.js e npm apenas para gerar novamente o HTML:

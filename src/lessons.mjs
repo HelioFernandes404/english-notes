@@ -254,10 +254,10 @@ As etiquetas V1–V5 são a convenção usada nas aulas. A forma **-ing** pode t
 | Terminação | O que fazer | Exemplos |
 | --- | --- | --- |
 | Maioria dos verbos | adicionar -s | work → works; play → plays |
-| -s, -sh, -ch, -x, -z | normalmente adicionar -es | miss → misses; watch → watches |
+| -o, -s, -sh, -ch, -x, -z | normalmente adicionar -es | go → goes; do → does; miss → misses; watch → watches |
 | Consoante + y | trocar y por -ies | study → studies; try → tries |
 | Vogal + y | adicionar apenas -s | play → plays; enjoy → enjoys |
-| Exceções frequentes | memorizar | have → has; be → is; do → does; go → goes |
+| Exceções frequentes | memorizar | have → has; be → is |
 
 Esses são padrões úteis. Alguns verbos têm particularidades: **quiz → quizzes**, por exemplo.
 

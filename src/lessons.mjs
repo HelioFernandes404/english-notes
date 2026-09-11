@@ -554,6 +554,90 @@ O exercício complementar de Past Simple está no material de apoio **“It Wasn
     correction: 'A regra não é simplesmente was = singular / were = plural: “you were” vale também para uma pessoa. Nem todo verbo CVC dobra a consoante.'
   },
   {
+    id: 'aula-12', number: '12', date: '10 SET 2026', shortDate: '10/09', group: 'passado',
+    title: 'Irregulares, CVC e shadowing', nav: 'Irregulares & CVC',
+    description: 'Revisar os verbos do dever de casa, ajustar a regra de duplicação e organizar a prática de pronúncia.',
+    tags: ['Grammar', 'Writing', 'Speaking'], source: 'passado/12-aula-10-09.md',
+    takeaway: 'Antes de acrescentar -ed, confira se o verbo é irregular. Know → knew; order → ordered.',
+    content: `## Primeiro, confira o verbo
+
+A revisão do dever de casa destacou o uso de terminações regulares em verbos irregulares. Para escrever uma afirmativa no **Past Simple**, identifique a forma base e confira se o verbo tem um passado irregular; só depois aplique as regras de **-ed** aos regulares.
+
+Depois de **did/didn’t**, use a forma base, mesmo com verbos irregulares: “I **didn’t write** the report.”
+
+## Verbos irregulares da aula
+
+| Forma base | Past Simple | Português |
+| --- | --- | --- |
+| break | broke | quebrar |
+| write | wrote | escrever |
+| win | won | ganhar / vencer |
+| keep | kept | manter / guardar |
+| find | found | encontrar |
+| feel | felt | sentir |
+| catch | caught | pegar / capturar |
+| teach | taught | ensinar |
+| bring | brought | trazer |
+| buy | bought | comprar |
+| know | knew | saber / conhecer |
+| fly | flew | voar |
+| sit | sat | sentar-se |
+| eat | ate | comer |
+| speak | spoke | falar |
+
+O passado de **know** é **knew**. **New** significa “novo”. O **k** de **knew** é mudo: /njuː/ no modelo britânico e /nuː/ no americano. [Cambridge Dictionary — knew](https://dictionary.cambridge.org/dictionary/english/knew).
+
+Exemplos acrescentados para estudar no contexto de trabalho:
+
+- “The update **broke** the deployment pipeline.”
+- “I **wrote** the incident report and **kept** a copy.”
+- “We **found** the problem and **spoke** to the team.”
+
+## CVC e a sílaba tônica
+
+**CVC** significa consoante + vogal + consoante. Nos padrões de duplicação, observe uma vogal escrita antes de uma única consoante final e a sílaba tônica. Em verbos com mais de uma sílaba, a tonicidade final normalmente determina a duplicação.
+
+A tabela retoma **order** e acrescenta exemplos de contraste:
+
+| Verbo | Past Simple | O que observar |
+| --- | --- | --- |
+| stop | stopped | Uma sílaba, vogal curta + consoante final. |
+| prefer | preferred | A última sílaba é tônica: pre-FER. |
+| open | opened | A primeira sílaba é tônica: O-pen. |
+| order | ordered | A primeira sílaba é tônica: OR-der. |
+
+Não duplique normalmente **w, x ou y**: **snow → snowed**, **fix → fixed**, **play → played**.
+
+## Traveled ou travelled?
+
+As duas grafias são corretas: **traveled** é a forma americana; **travelled**, a britânica. **Travel tem a primeira sílaba tônica nas duas variedades: TRA-vel.**
+
+A diferença é uma convenção ortográfica: no inglês britânico, o **l** final de verbos como **travel** é duplicado mesmo sem tonicidade na última sílaba. Mantenha a variedade escolhida ao escrever. [Chicago Manual of Style — duplicação de consoantes e travel](https://www.chicagomanualofstyle.org/qanda/data/faq/topics/YouCouldLookItUp/faq0036.html).
+
+## Hurt e put: a mesma forma no passado
+
+**Hurt → hurt** e **put → put** não recebem **-ed**. Para identificar o tempo, observe a frase, os auxiliares e o contexto. Exemplos acrescentados:
+
+| Presente | Passado |
+| --- | --- |
+| I **put** my laptop on the desk every morning. | I **put** my laptop on the desk yesterday. |
+| My wrist **hurts** today. | My wrist **hurt** yesterday. |
+
+“Invariável” aqui se refere à forma base e ao passado. No Present Simple com **he/she/it**, há **puts** e **hurts**. **Did you put…?** também sinaliza o passado pelo auxiliar.
+
+## Shadowing e próximos passos
+
+Na aula, o professor sugeriu ouvir o texto acompanhando em silêncio, fazer **shadowing** e depois ler para ele. No shadowing, você repete a fala logo após o modelo, enquanto o áudio continua, acompanhando o ritmo e a entonação.
+
+A música foi sugerida como ponto de partida. Trate a prática como uma oportunidade de treinar e receber feedback, sem assumir um resultado garantido. Para praticar fala cotidiana, use também um trecho falado: o canto pode alterar o ritmo e a duração dos sons.
+
+As tarefas registradas foram **corrigir o dever de casa explicando cada ajuste**, **atualizar a regra CVC** e **criar um plano de shadowing**. Como sugestão de estudo, escolha um trecho curto, ouça acompanhando o texto, repita junto e depois leia sem o áudio. As notas não incluem o texto completo do dever nem um áudio para essa prática.
+`,
+    review: 'Escreva três frases sobre seu último dia de trabalho usando verbos irregulares desta aula. Transforme uma delas em negativa. Depois explique por que prefer vira preferred e order vira ordered.',
+    correction: 'Nas notas, “know → new” deve ser “know → knew”. Travel mantém a primeira sílaba tônica no inglês britânico e no americano; travelled é uma diferença de grafia. Hurt e put ainda recebem -s na terceira pessoa do presente.',
+    related: ['aula-11', 'material-it-wasnt-my-day']
+  },
+  {
     id: 'material-preposicoes', number: 'A', date: 'MATERIAL DE APOIO', shortDate: '', group: 'apoio',
     title: 'Prepositions', nav: 'Prepositions', description: 'Tabela de consulta e exemplos de lugar, tempo e transporte.',
     tags: ['Grammar', 'Vocabulary'], source: 'conteudo-das-aulas/prepositions.md',

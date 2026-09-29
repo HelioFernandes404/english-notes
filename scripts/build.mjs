@@ -21,6 +21,7 @@ const iconPaths = {
   chevron: '<path d="m9 5 7 7-7 7"/>',
   bulb: '<path d="M9 18h6m-5 3h4M8 14a6 6 0 1 1 8 0c-1 .8-1 1.8-1 2H9c0-.2 0-1.2-1-2Z"/>',
   pencil: '<path d="m15 4 5 5M4 20l5-1L21 7a2 2 0 0 0 0-3l-1-1a2 2 0 0 0-3 0L5 15l-1 5Z"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-9v.1"/>',
 };
 const icon = name => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${iconPaths[name]}</svg>`;
@@ -49,6 +50,17 @@ function renderMarkdown(markdown, prefix, toc = []) {
     image({ text }) { return escape(text); }
   }});
   return parser.parse(markdown).replace(/<table>/g, '<div class="table-scroll" role="region" aria-label="Tabela de estudo" tabindex="0"><table>').replace(/<\/table>/g, '</table></div>');
+}
+
+const decode = text => text.replace(/&(amp|lt|gt|quot|#39);/g, (_, name) => ({ amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" }[name]));
+const plainText = html => decode(html.replace(/<(br|\/p|\/li|\/tr|\/h\d)\s*>/gi, ' ').replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim();
+
+// One search document per heading section, so each result links to a real anchor.
+function searchSections(html, fallbackTarget) {
+  const parts = html.split(/<h[1-6] id="([^"]+)">(.*?)<\/h[1-6]>/gs);
+  const sections = [{ target: fallbackTarget, heading: '', text: plainText(parts[0]) }];
+  for (let i = 1; i < parts.length; i += 3) sections.push({ target: parts[i], heading: plainText(parts[i + 1]), text: plainText(parts[i + 2]) });
+  return sections.filter(section => section.heading || section.text);
 }
 
 function normalizeNotes(text) {
@@ -109,6 +121,7 @@ const navigation = groups.map(group => {
   return `<section class="nav-group"><h2 class="nav-group-label"><span>${group.title}</span><span>${String(items.length).padStart(2, '0')}</span></h2>${items.map(lesson => `<a href="#${lesson.id}" class="lesson-link"${lesson === lessons[0] ? ' aria-current="page"' : ''}><span class="nav-num">${lesson.number}</span><span class="nav-title">${escape(lesson.nav)}</span><span class="nav-arrow" aria-hidden="true">↗</span></a>`).join('')}</section>`;
 }).join('');
 
+const searchDocs = [];
 const rendered = await Promise.all(lessons.map(async (lesson, index) => {
   const group = groups.find(group => group.id === lesson.group);
   const toc = [];
@@ -116,6 +129,10 @@ const rendered = await Promise.all(lessons.map(async (lesson, index) => {
   const sourceMarkdown = await readFile(join(root, lesson.source), 'utf8');
   const original = renderMarkdown(normalizeNotes(sourceMarkdown), `${lesson.id}-original`);
   const label = lesson.group === 'apoio' ? `Material ${lesson.number}` : `Aula ${lesson.number}`;
+  const searchBase = { lesson: lesson.id, order: index, label, title: lesson.title, group: group.id, tags: lesson.tags.join(' ') };
+  searchDocs.push({ ...searchBase, id: `${lesson.id}:intro`, target: `${lesson.id}-title`, heading: '', text: [lesson.description, lesson.takeaway, lesson.review, lesson.correction].filter(Boolean).join(' '), original: false });
+  searchSections(body, `${lesson.id}-title`).forEach((section, n) => searchDocs.push({ ...searchBase, ...section, id: `${lesson.id}:body:${n}`, original: false }));
+  searchSections(original, `${lesson.id}-anotacoes`).forEach((section, n) => searchDocs.push({ ...searchBase, ...section, id: `${lesson.id}:notes:${n}`, original: true }));
   const related = lesson.related?.map(id => lessons.find(lesson => lesson.id === id)) || [];
   let reference;
   if (lesson.id === 'aula-11') reference = { title: 'British Council · Past simple', url: 'https://learnenglish.britishcouncil.org/free-resources/grammar/english-grammar-reference/past-simple' };
@@ -168,7 +185,10 @@ const result = spawnSync(process.execPath, [cli, '-i', 'src/notebook.css', '-o',
 if (result.status !== 0) throw new Error(result.stderr || result.stdout || 'Falha ao compilar o Tailwind CSS.');
 const css = await readFile(join(root, '.build/notebook.css'), 'utf8');
 const script = await readFile(join(root, 'src/app.js'), 'utf8');
-html = html.replace('/* NOTEBOOK_STYLES */', () => css).replace('/* NOTEBOOK_SCRIPT */', () => script);
+const searchLib = await readFile(join(root, 'node_modules/minisearch/dist/umd/index.js'), 'utf8');
+searchDocs.sort((a, b) => a.order - b.order || a.id.localeCompare(b.id, 'en', { numeric: true }));
+const searchData = JSON.stringify(searchDocs.map(({ order, ...doc }) => doc)).replace(/</g, '\\u003c');
+html = html.replace('/* NOTEBOOK_STYLES */', () => css).replace('/* SEARCH_DATA */', () => searchData).replace('/* SEARCH_LIB */', () => searchLib.replace(/<\/script/gi, '<\\/script').replace(/\/\/# sourceMappingURL=.*/, '')).replace('/* NOTEBOOK_SCRIPT */', () => script);
 if (/\{\{[a-z-]+\}\}/.test(html)) throw new Error('Marcador de template não preenchido.');
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
 if (new Set(ids).size !== ids.length) throw new Error('IDs de navegação duplicados.');

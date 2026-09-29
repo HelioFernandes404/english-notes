@@ -11,7 +11,8 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "4.1.12",
-    "tailwindcss": "4.1.12",
-    "marked": "15.0.12"
+    "marked": "15.0.12",
+    "minisearch": "^7.2.0",
+    "tailwindcss": "4.1.12"
   }
 }

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#142e2b">
   <meta name="description" content="Caderno de inglês do Hélio: {{lesson-summary}}, {{support-summary}}, explicações em português e exemplos de inglês para o dia a dia e o trabalho.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23142e2b'/%3E%3Ctext x='30' y='43' text-anchor='middle' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23d6ed83'%3Een%3C/text%3E%3Ccircle cx='51' cy='42' r='3.5' fill='%23d6ed83'/%3E%3C/svg%3E">
   <title>English Notes — Caderno do Hélio</title>
   <style>/* NOTEBOOK_STYLES */</style>
 </head>
@@ -32,6 +33,7 @@
         <p class="truncate text-sm"><span class="breadcrumb-prefix"><span class="text-muted">Meu caderno</span><span class="mx-3 text-slate-300" aria-hidden="true">/</span></span><span class="font-medium" id="breadcrumb">Primeiros passos</span></p>
       </div>
       <div class="topbar-actions flex shrink-0 items-center gap-2">
+        <button id="search-button" type="button" aria-label="Buscar no caderno" aria-haspopup="dialog" title="Buscar no caderno (Ctrl+K ou /)" class="search-button flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium transition hover:border-accent hover:text-accent" hidden>{{icon-search}}<span>Buscar</span><kbd class="fullscreen-hint" aria-hidden="true">/</kbd></button>
         <button id="copy-button" type="button" aria-label="Copiar a página atual em Markdown" title="Copiar a página atual em Markdown" class="copy-button flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium transition hover:border-accent hover:text-accent" hidden>{{icon-copy}}<span id="copy-label">Copiar Markdown</span></button>
         <button id="fullscreen-button" type="button" aria-label="Entrar em tela cheia" aria-pressed="false" title="Entrar em tela cheia" class="fullscreen-button flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium transition hover:border-accent hover:text-accent" hidden><span class="fullscreen-enter">{{icon-expand}}</span><span class="fullscreen-exit" hidden>{{icon-collapse}}</span><span id="fullscreen-label">Tela cheia</span><kbd class="fullscreen-hint" aria-hidden="true" hidden>Esc</kbd></button>
         <button id="print-button" aria-label="Imprimir a aula atual" class="print-button flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium transition hover:border-accent hover:text-accent">{{icon-print}}<span>Imprimir aula</span></button>
@@ -43,10 +45,20 @@
       <footer class="page-footer flex flex-wrap justify-between gap-3 text-xs text-muted"><span>English Notes · Hélio & João</span><span>{{lesson-summary}} + {{support-summary}}</span></footer>
     </main>
   </div>
+  <dialog id="search-dialog" class="search-dialog" aria-label="Buscar no caderno">
+    <form method="dialog" class="search-form" id="search-form" role="search">
+      <div class="search-input-row">{{icon-search}}<input id="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar: used to, &quot;at the weekend&quot;, -went, tag:verbos" aria-label="Termo de busca" role="combobox" aria-expanded="true" aria-controls="search-results" aria-autocomplete="list"><button type="button" class="icon-button" id="search-close" aria-label="Fechar busca">{{icon-close}}</button></div>
+      <div class="search-filters" role="group" aria-label="Onde buscar"><button type="button" class="search-chip" data-scope="all" aria-pressed="true">Tudo</button><button type="button" class="search-chip" data-scope="review" aria-pressed="false">Revisão</button><button type="button" class="search-chip" data-scope="notes" aria-pressed="false">Anotações originais</button></div>
+    </form>
+    <ul class="search-results" id="search-results" role="listbox" aria-label="Resultados"></ul>
+    <p class="search-hint" id="search-hint"></p>
+  </dialog>
   <div class="sr-only" role="status" id="reading-status" aria-live="polite"></div>
   <div class="sr-only" role="status" id="view-status" aria-live="polite"></div>
   <div class="copy-status" role="status" id="copy-status" aria-live="polite" aria-atomic="true"></div>
   <noscript><style>.lesson-pane{display:block!important}.mobile-open,.mobile-close,.print-button{display:none}.sidebar{position:static;width:auto;max-height:none}.sidebar-nav{max-height:none}.sidebar-footer{display:none}.workspace{margin-left:0}.topbar{position:static}.reading-toc{display:none}.mobile-shade{display:none!important}</style></noscript>
+  <script type="application/json" id="search-data">/* SEARCH_DATA */</script>
+  <script>/* SEARCH_LIB */</script>
   <script>/* NOTEBOOK_SCRIPT */</script>
 </body>
 </html>

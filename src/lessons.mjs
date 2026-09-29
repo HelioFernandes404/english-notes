@@ -826,6 +826,70 @@ Tema: **A terça-feira que quase quebrou a produção**. Você escreverá um pos
     correction: 'A anotação original cita “upset” como estrutura de dados; provável erro de transcrição. Aqui, upset aparece só como sentimento.'
   },
   {
+    id: 'aula-17', number: '17', date: '29 SET 2026', shortDate: '29/09', group: 'passado',
+    title: 'Um dia ruim de desenvolvimento', nav: 'Post-mortem em inglês',
+    description: 'Ler e narrar um incidente técnico no passado: consulta lenta, índice ausente e cache do CloudFront.',
+    tags: ['Reading', 'Vocabulary', 'Grammar'], source: 'passado/17-aula-29-09.md',
+    takeaway: 'First, then, after that, finally. Conte o incidente na ordem em que aconteceu.',
+    content: `## O cenário
+
+Um dashboard de cliente estava quebrado: os dados carregavam com muito atraso.
+
+| Etapa | O que aconteceu |
+| --- | --- |
+| Causa raiz | Uma consulta lenta (8 segundos) por causa de um **índice ausente**. |
+| Correção | Criar o índice e reiniciar o servidor. |
+| Prevenção | Adicionar um teste **Playwright** e uma mensagem de *loading* no Angular. |
+| Entrega | Fazer o **deploy** do frontend e **invalidar o cache** do CloudFront. |
+| Resultado | O cliente confirmou a correção às 20h06. |
+
+## Vocabulário técnico
+
+| Termo | Significado |
+| --- | --- |
+| deploy | publicar uma versão em um ambiente |
+| cache | cópia guardada para acelerar respostas |
+| invalidation | remover do cache o conteúdo antigo, para os usuários receberem o novo |
+| staging | ambiente de homologação, também chamado de UAT (User Acceptance Test) |
+| missing index | índice ausente no banco de dados |
+| slow query | consulta lenta |
+
+## Verbos no passado da história
+
+| Base | Past Simple |
+| --- | --- |
+| wake up | woke up |
+| check | checked |
+| feel | felt |
+| look | looked |
+| create | created |
+| restart | restarted |
+| explain | explained |
+| write | wrote |
+| change | changed |
+| deploy | deployed |
+| get | got |
+
+Com **be**: **was broken**. Aqui, *broken* é o particípio usado como adjetivo, depois de **was**.
+
+## Ordem cronológica
+
+1. Encontrar a consulta lenta.
+2. Explicar o problema no stand-up.
+3. Criar o índice ausente.
+4. Criar a invalidação do CloudFront.
+5. Receber a mensagem de agradecimento do cliente.
+
+Palavras de sequência: **first**, **then**, **after that**, **finally**.
+
+## Modelo de frase
+
+“**First**, I found the slow query. **Then**, I created the missing index. **After that**, I deployed the frontend. **Finally**, I invalidated the CloudFront cache.”
+`,
+    review: 'Escreva um post-mortem curto de um incidente seu. Use first, then, after that e finally, dois verbos irregulares e uma negativa com didn’t.',
+    correction: 'Staging é um ambiente e UAT é um tipo de teste feito nele; a aula os tratou como equivalentes. As notas não trazem o texto completo do cenário, só o resumo.'
+  },
+  {
     id: 'material-preposicoes', number: 'A', date: 'MATERIAL DE APOIO', shortDate: '', group: 'apoio',
     title: 'Prepositions', nav: 'Prepositions', description: 'Tabela de consulta e exemplos de lugar, tempo e transporte.',
     tags: ['Grammar', 'Vocabulary'], source: 'conteudo-das-aulas/prepositions.md',

@@ -638,6 +638,194 @@ As tarefas registradas foram **corrigir o dever de casa explicando cada ajuste**
     related: ['aula-11', 'material-it-wasnt-my-day']
   },
   {
+    id: 'aula-13', number: '13', date: '15 SET 2026', shortDate: '15/09', group: 'passado',
+    title: 'Corrigindo a história do passado', nav: 'Didn’t + forma base',
+    description: 'Corrigir a lição “It wasn’t my day”: verbos irregulares, didn’t e pronúncia.',
+    tags: ['Grammar', 'Speaking', 'Vocabulary'], source: 'passado/13-aula-15-09.md',
+    takeaway: 'Depois de didn’t, o verbo volta à forma base: didn’t go, não “didn’t went”.',
+    content: `## Didn't pede a forma base
+
+O passado já está em **did**. Por isso o verbo principal não muda.
+
+| Errado | Correto |
+| --- | --- |
+| I didn't **finished** it. | I didn't **finish** it. |
+| I didn't **went** home. | I didn't **go** home. |
+
+Com **be**, a negativa é **wasn't** ou **weren't**: “It **wasn't** my day.”
+
+## Irregulares da correção
+
+| Base | Past Simple | Português |
+| --- | --- | --- |
+| drive | drove | dirigir |
+| buy | bought | comprar |
+| meet | met | encontrar / conhecer |
+| leave | left | sair / deixar |
+| come | came | vir |
+| become | became | tornar-se |
+
+## Vocabulário
+
+| Palavra | Significado |
+| --- | --- |
+| ringtone | toque do celular |
+| spill | derramar |
+| heavily | intensamente: “It rained **heavily**.” |
+| watch | relógio de pulso ou bolso |
+| clock | relógio de parede ou mesa |
+
+## Pronúncia: Yesterday
+
+**Yesterday** começa com o som de **Yes**, não “Ué”. Na leitura sombreada (*shadow reading*), você ouve e repete logo em seguida, imitando ritmo e entonação.
+`,
+    review: 'Escreva três frases sobre um dia ruim. Use uma negativa com didn’t, um verbo irregular e wasn’t.',
+    correction: 'O som inicial de “yesterday” é /j/ (como em “yes”), não “u”. “Watch” e “clock” não são intercambiáveis.'
+  },
+  {
+    id: 'aula-14', number: '14', date: '17 SET 2026', shortDate: '17/09', group: 'passado',
+    title: 'Narrar eventos em sequência', nav: 'First, then, after that',
+    description: 'Contar histórias curtas no passado com marcadores de sequência, had e used to.',
+    tags: ['Writing', 'Grammar', 'Vocabulary'], source: 'passado/14-aula-17-09.md',
+    takeaway: 'First, then, after that. Have vira had para todos os sujeitos.',
+    content: `## Marcadores de sequência
+
+Use conectivos para organizar a história: **First**, **then**, **after that**, **finally**.
+
+“**First**, I forgot my keys. **Then**, I called my friend. **After that**, I waited outside.”
+
+Temas da aula: *forget something important*, *lose your keys*, *go on a trip*.
+
+## Have → had
+
+**Had** vale para todos os sujeitos: I had, she had, they had.
+
+## Used to e would
+
+- **Used to**: hábitos ou situações do passado que já não acontecem. “I **used to** live in my hometown.”
+- **Would**: ações repetidas do passado, muitas vezes lembradas com carinho. “Every summer, we **would** go to the beach.”
+
+Para estados (como *live* ou *be*), prefira **used to**. Para uma ação única, use o Past Simple.
+
+## Vocabulário
+
+| Expressão | Significado |
+| --- | --- |
+| hometown | cidade natal |
+| once / twice / three times | uma vez / duas vezes / três vezes |
+| get a compliment | receber um elogio |
+| get caught in the rain | ser pego pela chuva |
+| have an argument | ter uma discussão |
+
+## Pronúncia: p mudo
+
+O **p** é mudo em **psychiatrist** e **psychologist**.
+`,
+    review: 'Conte uma história curta com first, then, after that e finally. Inclua uma frase com used to.',
+    correction: 'Used to não é “hábito concluído” em oposição a would: ambos falam de hábitos passados, mas would não serve para estados.'
+  },
+  {
+    id: 'aula-15', number: '15', date: '22 SET 2026', shortDate: '22/09', group: 'passado',
+    title: 'Diálogo no passado', nav: 'Ortografia e -ed',
+    description: 'Corrigir a história “Go on a Trip” e praticar verbos, ortografia e pronúncia em um diálogo.',
+    tags: ['Grammar', 'Speaking', 'Vocabulary'], source: 'passado/15-aula-22-09.md',
+    takeaway: 'We had to stop (necessidade). Could = habilidade no passado.',
+    content: `## Correção: Go on a Trip
+
+- **our need stop** → **we had to stop**. **Had to** expressa necessidade ou obrigação no passado.
+- **could finally continue** estava correto: **could** é o passado de **can**.
+
+**Could** também fala de habilidade no passado: “I **could climb** trees when I was younger.”
+
+## Verbos do diálogo
+
+| Regulares | Irregulares | Português |
+| --- | --- | --- |
+| missed | woke up | acordou |
+| walked | ran | correu |
+| laughed | came | veio |
+| answered | gave | deu |
+| celebrated | forgot | esqueceu |
+| | went | foi |
+| | caught | pegou |
+| | sat | sentou |
+| | felt | sentiu |
+| | drank | bebeu |
+| | found | encontrou |
+| | won | ganhou |
+| | had | teve |
+
+## Ortografia do -ed
+
+- **CVC com sílaba tônica**: dobre a consoante. **step → stepped**, **drop → dropped**.
+- **Consoante + y**: troque y por **-ied**. **try → tried**.
+- **Vogal + y**: só adicione **-ed**. **play → played**.
+
+## Pronúncia
+
+| Final | Som aproximado | Exemplo |
+| --- | --- | --- |
+| -dle | “dôul” | puddle |
+| -ble | “bôul” | Bible |
+| -ly | som final de “i” | terribly |
+
+## Vocabulário
+
+| Palavra | Significado |
+| --- | --- |
+| puddle | poça |
+| awful | terrível |
+| worse | pior |
+| mouth | boca |
+| badly | mal, de maneira ruim |
+| annoyed | irritado |
+| unused | não utilizado |
+| into | para dentro de |
+`,
+    review: 'Crie três frases no Past Simple a partir de imagens. Use um verbo regular, um irregular e had to.',
+    correction: 'As pronúncias “doul” e “boul” são aproximações. “Into” indica movimento para dentro, não “em um”.'
+  },
+  {
+    id: 'aula-16', number: '16', date: '24 SET 2026', shortDate: '24/09', group: 'passado',
+    title: 'Sujeito em toda frase', nav: 'Sujeito e his',
+    description: 'Revisar a narrativa no passado: repetir o sujeito e usar o possessivo correto.',
+    tags: ['Writing', 'Grammar', 'Vocabulary'], source: 'passado/16-aula-24-09.md',
+    takeaway: 'Cada verbo tem seu sujeito. Falando dele, use his.',
+    content: `## Repita o sujeito
+
+Em português, o sujeito pode ficar oculto. Em inglês, cada verbo precisa de um sujeito explícito.
+
+“First, he got good news. After that, **he** went to tell his friends.”
+
+Não escreva “After that, went to tell his friends.”
+
+## Possessivo da terceira pessoa
+
+Use **his**, **her** ou **their** para quem está sendo descrito. **Your** é para a pessoa com quem você fala.
+
+“He hurt **himself** and **his** arm was painful.”
+
+## Conectivos
+
+**First**, **then**, **after that** e **finally** organizam a narrativa.
+
+## Vocabulário
+
+| Palavra | Significado |
+| --- | --- |
+| upset | chateado |
+| argue | discutir |
+| painful | doloroso |
+| hurt himself | machucar-se |
+
+## Próxima aula
+
+Tema: **A terça-feira que quase quebrou a produção**. Você escreverá um post-mortem de um incidente de produção, com termos como **MongoDB** e **CloudFront**.
+`,
+    review: 'Escreva um pequeno relato de incidente no passado. Repita o sujeito em cada frase e use his ou her corretamente.',
+    correction: 'A anotação original cita “upset” como estrutura de dados; provável erro de transcrição. Aqui, upset aparece só como sentimento.'
+  },
+  {
     id: 'material-preposicoes', number: 'A', date: 'MATERIAL DE APOIO', shortDate: '', group: 'apoio',
     title: 'Prepositions', nav: 'Prepositions', description: 'Tabela de consulta e exemplos de lugar, tempo e transporte.',
     tags: ['Grammar', 'Vocabulary'], source: 'conteudo-das-aulas/prepositions.md',

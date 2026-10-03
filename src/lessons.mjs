@@ -890,6 +890,77 @@ Palavras de sequência: **first**, **then**, **after that**, **finally**.
     correction: 'Staging é um ambiente e UAT é um tipo de teste feito nele; a aula os tratou como equivalentes. As notas não trazem o texto completo do cenário, só o resumo.'
   },
   {
+    id: 'aula-18', number: '18', date: '01 OUT 2026', shortDate: '01/10', group: 'passado',
+    title: 'Simple Past para o trabalho', nav: 'Simple Past: DevOps',
+    description: 'Aplicar afirmativas, negativas e perguntas no passado, revisar irregulares de DevOps e escrever sobre incidentes e commits.',
+    tags: ['Grammar', 'Writing', 'Vocabulary'], source: 'passado/18-aula-01-10.md',
+    takeaway: 'Did e didn’t já marcam o passado; depois deles, use o verbo na forma base.',
+    content: `## Três estruturas do Simple Past
+
+Use o Simple Past para ações concluídas no passado. Em afirmativas, o verbo principal vai para o passado. Nas negativas e perguntas com a maioria dos verbos, **did** carrega a marca de passado e o verbo principal fica na forma base.
+
+| Tipo | Estrutura | Exemplo em DevOps |
+| --- | --- | --- |
+| Afirmativa | sujeito + verbo no passado | I **checked** the logs yesterday. |
+| Negativa | sujeito + **didn't** + forma base | I **didn't find** the cause at first. |
+| Pergunta | **Did** + sujeito + forma base? | **Did** you **write** the incident report? |
+
+Evite marcar o passado duas vezes: **didn't find**, não “didn't found”; **Did you write?**, não “Did you wrote?”.
+
+## Was e were
+
+O verbo **be** forma o passado sem **did**:
+
+| Sujeito | Afirmativa | Negativa | Pergunta |
+| --- | --- | --- | --- |
+| I / he / she / it | was | wasn't | Was the service ready? |
+| you / we / they | were | weren't | Were the logs available? |
+
+**You were** vale tanto para uma pessoa quanto para várias. Com substantivos no plural, também use **were**: **The logs were incomplete.**
+
+## Ortografia dos verbos regulares
+
+| Padrão | Formação | Exemplo |
+| --- | --- | --- |
+| Maioria dos verbos | + **-ed** | work → worked; ask → asked |
+| Final em **e** | + **-d** | love → loved |
+| Consoante + **y** | **y** muda para **-ied** | try → tried |
+| Vogal + **y** | + **-ed** | play → played |
+| Vogal curta + consoante final, em padrões específicos | dobra a consoante + **-ed** | stop → stopped |
+
+A regra CVC (consoante + vogal + consoante) é um guia, não uma fórmula automática para qualquer verbo curto. A tonicidade e a terminação também importam.
+
+## Irregulares úteis em DevOps
+
+| Forma base | Simple Past | Exemplo |
+| --- | --- | --- |
+| wake up | woke up | I **woke up** before the on-call alert. |
+| make | made | We **made** a rollback plan. |
+| run | ran | The pipeline **ran** twice. |
+| break | broke | The release **broke** the build. |
+| send | sent | I **sent** an update in Slack. |
+| build | built | We **built** a new image. |
+| spend | spent | She **spent** an hour checking the logs. |
+| lose | lost | We **lost** the connection. |
+| catch | caught | The test **caught** the regression. |
+| begin | began | The deploy **began** at noon. |
+| think | thought | I **thought** the cache had expired. |
+| understand | understood | The team **understood** the impact. |
+| tell | told | He **told** the team about the rollback. |
+
+Em **caught** e **thought**, as letras **gh** não são pronunciadas e a palavra termina com som de /t/. Memorize as formas irregulares; não acrescente **-ed** a elas.
+
+## Revisar uma mensagem e relatar um incidente
+
+Na mensagem simulada, as correções registradas praticaram **got up**, **didn't see**, **didn't find**, **logs were**, **went**, **asked**, **explained**, **worked** e **didn't have**. As formas dependem do sentido da frase completa: **Did you solve it?** (“Você resolveu?”) e **Did you see it?** (“Você viu?”) são ambas gramaticais, mas perguntam coisas diferentes.
+
+Para descrever atividades da daily, um incidente ou o histórico de commits, organize a narrativa com perguntas simples: **What happened? How did it happen? What was the cause? How did we fix it? What did we learn?** Use passado nas respostas sobre eventos concluídos; use **was/were** para estados e **did/didn't + forma base** para perguntas e negativas.
+`,
+    review: 'Escreva um breve relato de incidente com cinco partes: o que aconteceu, como aconteceu, a causa, a correção e o aprendizado. Use ao menos dois verbos irregulares, uma negativa com didn’t e uma frase com was ou were.',
+    correction: 'As anotações dizem que foram corrigidos 10 erros, mas registram mais itens de correção; a lista foi preservada na fonte. “To check it” pode estar correto: após o marcador de infinitivo to vem check na forma base, e it pode ser o objeto. “Did you solve?” e “Did you see?” também são gramaticais; a escolha depende do sentido. O contexto completo não está nas notas para validar as demais substituições lexicais.',
+    related: ['aula-11', 'aula-12', 'aula-17']
+  },
+  {
     id: 'material-preposicoes', number: 'A', date: 'MATERIAL DE APOIO', shortDate: '', group: 'apoio',
     title: 'Prepositions', nav: 'Prepositions', description: 'Tabela de consulta e exemplos de lugar, tempo e transporte.',
     tags: ['Grammar', 'Vocabulary'], source: 'conteudo-das-aulas/prepositions.md',

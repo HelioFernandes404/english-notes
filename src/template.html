@@ -18,7 +18,7 @@
       <div><p class="text-lg font-semibold tracking-tight text-white">English Notes</p><p class="mt-0.5 text-sm text-white/55">Caderno de estudos</p></div>
       <button id="close-menu" class="mobile-close icon-button ml-auto" aria-label="Fechar índice">{{icon-close}}</button>
     </div>
-    <nav class="sidebar-nav" aria-label="Aulas e materiais">{{navigation}}</nav>
+    <nav class="sidebar-nav" aria-label="Revisões, aulas e materiais">{{navigation}}</nav>
     <div class="sidebar-footer flex items-center gap-3 border-t border-white/10 px-6 py-5">
       <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm font-semibold text-white/90">H</span>
       <div><p class="text-sm font-medium text-white/90">Caderno do Hélio</p><p class="mt-0.5 text-xs text-white/50">Aulas com João · {{years}}</p></div>
@@ -55,8 +55,9 @@
   </dialog>
   <div class="sr-only" role="status" id="reading-status" aria-live="polite"></div>
   <div class="sr-only" role="status" id="view-status" aria-live="polite"></div>
+  <div class="sr-only" role="status" id="review-status" aria-live="polite"></div>
   <div class="copy-status" role="status" id="copy-status" aria-live="polite" aria-atomic="true"></div>
-  <noscript><style>.lesson-pane{display:block!important}.mobile-open,.mobile-close,.print-button{display:none}.sidebar{position:static;width:auto;max-height:none}.sidebar-nav{max-height:none}.sidebar-footer{display:none}.workspace{margin-left:0}.topbar{position:static}.reading-toc{display:none}.mobile-shade{display:none!important}</style></noscript>
+  <noscript><style>.lesson-pane{display:block!important}.review-dashboard,.review-nav-group,.spaced-review{display:none!important}.mobile-open,.mobile-close,.print-button{display:none}.sidebar{position:static;width:auto;max-height:none}.sidebar-nav{max-height:none}.sidebar-footer{display:none}.workspace{margin-left:0}.topbar{position:static}.reading-toc{display:none}.mobile-shade{display:none!important}</style></noscript>
   <script type="application/json" id="search-data">/* SEARCH_DATA */</script>
   <script>/* SEARCH_LIB */</script>
   <script>/* NOTEBOOK_SCRIPT */</script>

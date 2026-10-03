@@ -1,6 +1,12 @@
 (() => {
   const pages = [...document.querySelectorAll('.lesson-pane')];
   const links = [...document.querySelectorAll('.lesson-link')];
+  const reviewPages = pages.filter(page => page.dataset.reviewable === 'true');
+  const reviewPageById = new Map(reviewPages.map(page => [page.id, page]));
+  const reviewIntervals = [1, 3, 7, 14, 30];
+  const reviewStorageKey = 'english-notes-spaced-reviews-v1';
+  let reviewRecords = Object.create(null);
+  let reviewStorageAvailable = true;
   const sidebar = document.getElementById('sidebar');
   const shade = document.getElementById('mobile-shade');
   const menuButton = document.getElementById('open-menu');
@@ -43,7 +49,9 @@
   async function copyPageMarkdown() {
     if (copyButton.disabled) return;
     const page = pages.find(item => !item.hidden);
-    const markdown = JSON.parse(page.querySelector('.lesson-markdown').textContent);
+    const markdownNode = page?.querySelector('.lesson-markdown');
+    if (!markdownNode) return;
+    const markdown = JSON.parse(markdownNode.textContent);
     const focused = document.activeElement;
     clearTimeout(copyFeedbackTimer);
     copyStatus.textContent = '';
@@ -147,7 +155,8 @@
     let hash;
     try { hash = decodeURIComponent(location.hash.slice(1)); } catch { hash = ''; }
     const anchor = hash ? document.getElementById(hash) : null;
-    const page = anchor?.closest('.lesson-pane') || pages[0];
+    const fallbackPage = pages.find(item => item.dataset.reviewable === 'true') || pages[0];
+    const page = anchor?.closest('.lesson-pane') || fallbackPage;
     const changed = page.hidden;
     pages.forEach(item => { item.hidden = item !== page; });
     links.forEach(link => {
@@ -156,6 +165,7 @@
     });
     updateBreadcrumb();
     document.title = page.dataset.title + ' — English Notes';
+    copyButton.hidden = page.id === 'revisoes';
     document.getElementById('reading-status').textContent = page.dataset.label + ': ' + page.dataset.title;
     setMenu(false);
     if (!initial && (changed || !anchor || anchor === page)) {
@@ -217,6 +227,180 @@
   const fold = value => value.replace(/[^\u0000-\u007f]/g, char => char.normalize('NFD')[0]).toLowerCase();
   const escapeHtml = value => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
   const escapeRegex = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const reviewRatingLabels = { forgot: 'Esqueci', hard: 'Com esforço', good: 'Lembrei bem' };
+
+  function localDayNumber(value) {
+    const date = value instanceof Date ? value : new Date(value);
+    return Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000);
+  }
+
+  function formatReviewDate(value) {
+    return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short' }).format(new Date(value)).replace(/\.$/, '');
+  }
+
+  function reviewDayDifference(value) {
+    return localDayNumber(value) - localDayNumber(Date.now());
+  }
+
+  function formatReviewRelative(value) {
+    const difference = reviewDayDifference(value);
+    if (difference === 0) return 'hoje';
+    if (difference === 1) return 'amanhã';
+    if (difference === -1) return 'há 1 dia';
+    if (difference < 0) return `há ${Math.abs(difference)} dias`;
+    return `em ${difference} dias`;
+  }
+
+  function loadReviewRecords() {
+    let stored;
+    try {
+      stored = window.localStorage.getItem(reviewStorageKey);
+    } catch {
+      reviewStorageAvailable = false;
+      return;
+    }
+    if (!stored) return;
+    try {
+      const parsed = JSON.parse(stored);
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return;
+      for (const [id, record] of Object.entries(parsed)) {
+        if (!reviewPageById.has(id) || !record || !Number.isInteger(record.step) || record.step < 0 || record.step >= reviewIntervals.length) continue;
+        if (!Number.isFinite(record.lastReviewedAt) || !Number.isFinite(record.nextDueAt)) continue;
+        if (!Object.hasOwn(reviewRatingLabels, record.lastRating)) continue;
+        reviewRecords[id] = {
+          step: record.step,
+          lastReviewedAt: record.lastReviewedAt,
+          nextDueAt: record.nextDueAt,
+          lastRating: record.lastRating,
+          totalReviews: Number.isInteger(record.totalReviews) && record.totalReviews > 0 ? record.totalReviews : 1,
+          history: Array.isArray(record.history) ? record.history.filter(item => item && Number.isFinite(item.at) && Object.hasOwn(reviewRatingLabels, item.rating)).slice(-500) : [],
+        };
+      }
+    } catch {
+      // Ignore an invalid saved value and let the learner start a fresh review history.
+    }
+  }
+
+  function saveReviewRecords() {
+    try {
+      window.localStorage.setItem(reviewStorageKey, JSON.stringify(reviewRecords));
+      reviewStorageAvailable = true;
+    } catch {
+      reviewStorageAvailable = false;
+    }
+  }
+
+  function reviewDateAfter(days) {
+    const date = new Date();
+    date.setHours(12, 0, 0, 0);
+    date.setDate(date.getDate() + days);
+    return date.getTime();
+  }
+
+  function renderReviewPanels() {
+    document.querySelectorAll('[data-review-panel]').forEach(panel => {
+      const record = reviewRecords[panel.dataset.reviewLesson];
+      const state = panel.querySelector('[data-review-state]');
+      const next = panel.querySelector('[data-review-next]');
+      const buttons = [...panel.querySelectorAll('[data-review-rating]')];
+      if (!record) {
+        state.textContent = 'Ainda sem revisões registradas.';
+        next.textContent = 'A primeira marcação agenda a próxima revisão para amanhã.';
+        buttons.forEach(button => { button.disabled = false; });
+        return;
+      }
+      const difference = reviewDayDifference(record.nextDueAt);
+      const markedToday = localDayNumber(record.lastReviewedAt) === localDayNumber(Date.now());
+      state.textContent = markedToday ? 'A revisão de hoje já foi registrada.'
+        : difference < 0 ? `Revisão atrasada ${formatReviewRelative(record.nextDueAt)}.`
+          : difference === 0 ? 'Revisão prevista para hoje.' : `Próxima revisão ${formatReviewRelative(record.nextDueAt)}.`;
+      next.textContent = `Etapa ${record.step + 1} de ${reviewIntervals.length} · ${reviewIntervals[record.step]} ${reviewIntervals[record.step] === 1 ? 'dia' : 'dias'} · última resposta: ${reviewRatingLabels[record.lastRating]}.`;
+      buttons.forEach(button => { button.disabled = markedToday; });
+    });
+  }
+
+  function reviewTaskMarkup(page, record, due) {
+    const date = escapeHtml(formatReviewDate(record.nextDueAt));
+    const relative = escapeHtml(formatReviewRelative(record.nextDueAt));
+    const title = escapeHtml(page.dataset.title);
+    const label = escapeHtml(page.dataset.label);
+    const stage = `Etapa ${record.step + 1} de ${reviewIntervals.length} · ${reviewIntervals[record.step]} ${reviewIntervals[record.step] === 1 ? 'dia' : 'dias'}`;
+    const dueLabel = relative === 'hoje' ? 'vence hoje' : `atrasada ${relative}`;
+    const meta = due ? `${label} · ${dueLabel}` : `${label} · ${date} · ${relative}`;
+    return `<article class="review-task"><div><h3 class="review-task-title">${title}</h3><p class="review-task-meta">${meta}</p></div><span class="review-task-stage">${stage}</span><a class="review-task-link" href="${'#' + encodeURIComponent(page.id)}">Abrir aula <span aria-hidden="true">→</span></a></article>`;
+  }
+
+  function renderReviewDashboard() {
+    const today = localDayNumber(Date.now());
+    const entries = reviewPages.map(page => ({ page, record: reviewRecords[page.id] })).filter(item => item.record);
+    const due = entries.filter(item => localDayNumber(item.record.nextDueAt) <= today).sort((a, b) => a.record.nextDueAt - b.record.nextDueAt);
+    const upcoming = entries.filter(item => localDayNumber(item.record.nextDueAt) > today).sort((a, b) => a.record.nextDueAt - b.record.nextDueAt);
+    const unstarted = reviewPages.filter(page => !reviewRecords[page.id]);
+    const dueCount = due.length;
+    const dueBadge = document.getElementById('review-nav-count');
+    dueBadge.textContent = String(dueCount);
+    dueBadge.hidden = dueCount === 0;
+    dueBadge.setAttribute('aria-label', `${dueCount} ${dueCount === 1 ? 'revisão para hoje' : 'revisões para hoje'}`);
+    document.getElementById('review-due-count').textContent = String(dueCount);
+    document.getElementById('review-upcoming-count').textContent = String(upcoming.length);
+    document.getElementById('review-unstarted-count').textContent = String(unstarted.length);
+    document.getElementById('review-due-label').textContent = `${dueCount} ${dueCount === 1 ? 'aula' : 'aulas'}`;
+    document.getElementById('review-upcoming-label').textContent = `${upcoming.length} ${upcoming.length === 1 ? 'aula' : 'aulas'}`;
+    document.getElementById('review-due-list').innerHTML = due.map(item => reviewTaskMarkup(item.page, item.record, true)).join('');
+    document.getElementById('review-upcoming-list').innerHTML = upcoming.map(item => reviewTaskMarkup(item.page, item.record, false)).join('');
+    const dueEmpty = document.getElementById('review-due-empty');
+    dueEmpty.hidden = dueCount > 0;
+    if (dueCount === 0) {
+      if (upcoming.length) dueEmpty.textContent = `Você está em dia. A próxima revisão vence ${formatReviewRelative(upcoming[0].record.nextDueAt)} (${formatReviewDate(upcoming[0].record.nextDueAt)}).`;
+      else dueEmpty.textContent = 'Nenhuma revisão venceu ainda.';
+    }
+    const unstartedNote = document.getElementById('review-unstarted-note');
+    unstartedNote.textContent = unstarted.length ? `${unstarted.length} ${unstarted.length === 1 ? 'aula ainda não tem' : 'aulas ainda não têm'} revisões registradas.` : 'Todas as aulas já entraram no ciclo de revisão.';
+    const startLink = document.getElementById('review-start-link');
+    const nextPage = unstarted[0] || due[0]?.page || upcoming[0]?.page;
+    startLink.hidden = !nextPage;
+    if (nextPage) {
+      startLink.href = `#${encodeURIComponent(nextPage.id)}`;
+      startLink.textContent = unstarted.length ? 'Começar pela próxima aula sem revisão' : 'Abrir uma aula';
+    }
+    document.getElementById('review-storage-warning').hidden = reviewStorageAvailable;
+  }
+
+  function registerReview(pageId, rating) {
+    const page = reviewPageById.get(pageId);
+    if (!page || !Object.hasOwn(reviewRatingLabels, rating)) return;
+    const previous = reviewRecords[pageId];
+    const now = Date.now();
+    if (previous && localDayNumber(previous.lastReviewedAt) === localDayNumber(now)) {
+      document.getElementById('review-status').textContent = `${page.dataset.title}: a revisão de hoje já foi registrada.`;
+      return;
+    }
+    let step = 0;
+    if (previous && rating === 'hard') step = previous.step;
+    else if (previous && rating === 'good') step = Math.min(previous.step + 1, reviewIntervals.length - 1);
+    const interval = reviewIntervals[step];
+    const history = [...(previous?.history || []), { at: now, rating, intervalDays: interval }].slice(-500);
+    const record = {
+      step,
+      lastReviewedAt: now,
+      nextDueAt: reviewDateAfter(interval),
+      lastRating: rating,
+      totalReviews: (previous?.totalReviews || 0) + 1,
+      history,
+    };
+    reviewRecords[pageId] = record;
+    saveReviewRecords();
+    renderReviewPanels();
+    renderReviewDashboard();
+    document.getElementById('review-status').textContent = `${page.dataset.title}: revisão registrada. Próxima em ${interval} ${interval === 1 ? 'dia' : 'dias'}, ${formatReviewDate(record.nextDueAt)}.`;
+  }
+
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-review-rating]');
+    if (!button || button.disabled) return;
+    const panel = button.closest('[data-review-panel]');
+    if (panel) registerReview(panel.dataset.reviewLesson, button.dataset.reviewRating);
+  });
 
   function ensureIndex() {
     if (searchIndex) return;
@@ -345,8 +529,10 @@
       openSearch();
     }
   });
+  loadReviewRecords();
+  renderReviewPanels();
+  renderReviewDashboard();
   showPage(true);
   searchButton.hidden = false;
   fullscreenButton.hidden = false;
-  copyButton.hidden = false;
 })();

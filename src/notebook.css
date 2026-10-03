@@ -42,6 +42,8 @@
   .lesson-link .nav-title { flex: 1; }
   .lesson-link .nav-arrow { opacity: 0; }
   .lesson-link[aria-current=page] .nav-arrow { opacity: 1; }
+  .review-nav-count { min-width: 21px; padding: 1px 6px; border-radius: 999px; background: #d6ed83; color: #1e392f; font-size: .6875rem; text-align: center; }
+  .lesson-link[aria-current=page] .review-nav-count { background: #1e392f1a; }
   .workspace { margin-left: 288px; }
   .topbar { min-height: 76px; position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); }
   .icon { width: 19px; height: 19px; flex-shrink: 0; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; fill: none; }
@@ -149,6 +151,49 @@
   .page-nav-link small { color: #7a8773; font-size: .75rem; }
   .page-nav-link p { color: #466240; font-size: .875rem; font-weight: 600; line-height: 1.5; margin-top: 2px; }
   .page-footer { margin: 32px 0 4px; }
+  .review-dashboard-layout { grid-template-columns: minmax(0, 1fr); }
+  .review-dashboard .paper-header { padding-bottom: 27px; }
+  .review-dashboard .paper-header h1 { margin-top: 20px; }
+  .review-summary { display: flex; flex-wrap: wrap; gap: 10px 0; margin-top: 26px; padding-top: 18px; border-top: 1px solid #e8ede9; }
+  .review-summary-item { display: flex; align-items: baseline; gap: 7px; padding: 0 20px; border-right: 1px solid #e3e9e5; color: #718078; font-size: .75rem; }
+  .review-summary-item:first-child { padding-left: 0; }
+  .review-summary-item:last-child { border-right: 0; }
+  .review-summary-item strong { color: #243e30; font-size: 1rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .review-intervals { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 13px; padding: 13px 0; border-top: 1px solid #e3e9e5; border-bottom: 1px solid #e3e9e5; }
+  .review-intervals-label { color: #4d5e55; font-size: .75rem; font-weight: 650; }
+  .review-intervals ol { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; color: #5d6d64; font-size: .75rem; }
+  .review-intervals li + li::before { content: '·'; margin-right: 8px; color: #a4b2a9; }
+  .review-intervals li:first-child { color: var(--color-accent); font-weight: 650; }
+  .review-rules { margin: 10px 0 0; color: var(--color-muted); font-size: .75rem; line-height: 1.65; }
+  .review-dashboard-section { margin-top: 28px; }
+  .review-section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  .review-section-heading h2 { margin: 0; color: #263e32; font-size: 1rem; font-weight: 650; }
+  .review-section-count { color: var(--color-muted); font-size: .75rem; }
+  .review-task-list { border-top: 1px solid #e3e9e5; }
+  .review-task { display: grid; grid-template-columns: minmax(0, 1fr) 130px auto; align-items: center; gap: 16px; min-height: 65px; border-bottom: 1px solid #e8ede9; }
+  .review-task-title { margin: 0; color: #263e32; font-size: .875rem; font-weight: 600; }
+  .review-task-meta { margin-top: 3px; color: var(--color-muted); font-size: .75rem; }
+  .review-task-stage { color: #68776f; font-size: .75rem; }
+  .review-task-link, .review-start-link { color: var(--color-accent); font-size: .8125rem; font-weight: 600; white-space: nowrap; }
+  .review-task-link:hover, .review-start-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .review-empty { padding: 16px 0; color: var(--color-muted); font-size: .875rem; line-height: 1.7; }
+  .review-empty p { margin: 4px 0 0; }
+  .review-unstarted-note { margin: 25px 0 5px; color: #66766d; font-size: .8125rem; }
+  .review-start-link { display: inline-block; }
+  .review-storage-warning { margin-top: 20px; padding: 12px 14px; border-left: 3px solid #cfaa54; background: #faf7ef; color: #75694f; font-size: .8125rem; line-height: 1.6; }
+  .review-storage-warning[hidden] { display: none; }
+  .spaced-review { margin-top: 34px; padding: 22px; border: 1px dashed #b7c6b6; border-radius: 8px; background: #fbfcfa; }
+  .spaced-review-kicker { margin: 0 0 7px; color: #64766c; font-size: .6875rem; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; }
+  .spaced-review h2 { margin: 0; color: #315b3c; font-size: 1rem; font-weight: 650; }
+  .spaced-review-help { margin: 6px 0 14px; color: #6b786f; font-size: .8125rem; line-height: 1.65; }
+  .spaced-review-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+  .spaced-review-choices button { display: grid; justify-items: start; gap: 1px; min-height: 48px; padding: 8px 12px; border: 1px solid #d7e1d9; border-radius: 7px; background: white; color: #345b45; text-align: left; transition: border-color .15s, background .15s; }
+  .spaced-review-choices button:hover:not(:disabled) { border-color: #8cad92; background: #f5f8f3; }
+  .spaced-review-choices button:disabled { cursor: default; opacity: .5; }
+  .spaced-review-choices button span { font-size: .8125rem; font-weight: 650; }
+  .spaced-review-choices button small { color: #748177; font-size: .6875rem; }
+  .spaced-review-next { margin: 12px 0 0; color: #68776f; font-size: .75rem; }
+  .spaced-review-next:empty { display: none; }
   .lesson-title:focus { outline: none; }
   .references { margin-top: 22px; color: #73816c; font-size: .8125rem; line-height: 1.7; }
   .references a { text-decoration: underline; text-underline-offset: 3px; }
@@ -205,6 +250,15 @@
   .page-nav-link p { font-size: .8125rem; }
   .page-navigation { gap: 10px; }
   .source-label { display: none; }
+  .review-summary-item { padding-inline: 12px; }
+  .review-summary-item:first-child { padding-left: 0; }
+  .review-summary-item:last-child { padding-right: 0; }
+  .review-task { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 11px 0; }
+  .review-task-stage { grid-column: 1; }
+  .review-task-link { grid-column: 2; grid-row: 1 / span 2; }
+  .spaced-review { padding: 18px; }
+  .spaced-review-choices { display: grid; grid-template-columns: 1fr; }
+  .spaced-review-choices button { display: flex; align-items: baseline; justify-content: space-between; min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
@@ -213,6 +267,7 @@
   @page { margin: 16mm; }
   body { background: white !important; color: #111; }
   .sidebar, .topbar, .notebook-overline, .reading-toc, .page-navigation, .page-footer, .mobile-shade, .skip-link, .copy-status { display: none !important; }
+  .review-nav-group, .spaced-review { display: none !important; }
   .workspace { margin: 0; }
   .main-content { max-width: none; padding: 0; }
   .lesson-layout { display: block; }

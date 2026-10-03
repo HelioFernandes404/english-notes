@@ -116,10 +116,35 @@ const period = !first ? 'Materiais de apoio'
   : `${monthLabel(first)} ${first.year}`;
 const years = !first ? '' : first.year === last.year ? String(first.year) : `${first.year} — ${last.year}`;
 
-const navigation = groups.map(group => {
+const reviewNavigation = `<section class="nav-group review-nav-group"><h2 class="nav-group-label"><span>Estudo</span></h2><a href="#revisoes" class="lesson-link review-nav-link"><span class="nav-num" aria-hidden="true">↻</span><span class="nav-title">Revisões</span><span class="review-nav-count" id="review-nav-count" hidden></span><span class="nav-arrow" aria-hidden="true">↗</span></a></section>`;
+const navigation = reviewNavigation + groups.map(group => {
   const items = lessons.filter(lesson => lesson.group === group.id);
   return `<section class="nav-group"><h2 class="nav-group-label"><span>${group.title}</span><span>${String(items.length).padStart(2, '0')}</span></h2>${items.map(lesson => `<a href="#${lesson.id}" class="lesson-link"${lesson === lessons[0] ? ' aria-current="page"' : ''}><span class="nav-num">${lesson.number}</span><span class="nav-title">${escape(lesson.nav)}</span><span class="nav-arrow" aria-hidden="true">↗</span></a>`).join('')}</section>`;
 }).join('');
+
+const firstReviewable = lessons.find(lesson => lesson.group !== 'apoio') || lessons[0];
+const reviewDashboard = `<section class="lesson-pane review-dashboard" id="revisoes" data-title="Revisões" data-label="Estudo" data-group="Revisões" data-reviewable="false" hidden aria-labelledby="revisoes-title">
+  <div class="lesson-layout review-dashboard-layout">
+    <article class="paper">
+      <header class="paper-header"><div class="lesson-kicker">ESTUDO <span class="mx-1 text-slate-300">/</span> ESPAÇAMENTO</div><h1 id="revisoes-title" class="lesson-title" tabindex="-1">Revisões</h1><p class="description">Retome as aulas no momento certo. As marcações ficam salvas neste navegador.</p>
+        <div class="review-summary" aria-label="Resumo das revisões">
+          <div class="review-summary-item"><strong id="review-due-count">0</strong><span>para hoje</span></div>
+          <div class="review-summary-item"><strong id="review-upcoming-count">0</strong><span>programadas</span></div>
+          <div class="review-summary-item"><strong id="review-unstarted-count">0</strong><span>sem início</span></div>
+        </div>
+      </header>
+      <div class="paper-body">
+        <div class="review-intervals" aria-label="Sequência de intervalos"><span class="review-intervals-label">Intervalos</span><ol><li>1 dia</li><li>3 dias</li><li>7 dias</li><li>14 dias</li><li>30 dias</li></ol></div>
+        <p class="review-rules">Esqueci: volta a 1 dia · Com esforço: repete o intervalo · Lembrei bem: avança na sequência. Depois de 30 dias, a revisão se repete mensalmente.</p>
+        <section class="review-dashboard-section" aria-labelledby="review-due-title"><div class="review-section-heading"><h2 id="review-due-title">Para revisar hoje</h2><span id="review-due-label" class="review-section-count">0 aulas</span></div><div id="review-due-list" class="review-task-list"></div><div id="review-due-empty" class="review-empty" hidden></div></section>
+        <section class="review-dashboard-section" aria-labelledby="review-upcoming-title"><div class="review-section-heading"><h2 id="review-upcoming-title">Próximas revisões</h2><span id="review-upcoming-label" class="review-section-count">0 aulas</span></div><div id="review-upcoming-list" class="review-task-list"></div><div id="review-upcoming-empty" class="review-empty" hidden>Nenhuma próxima revisão programada.</div></section>
+        <p id="review-unstarted-note" class="review-unstarted-note"></p>
+        <a id="review-start-link" class="review-start-link" href="#${firstReviewable.id}">Abrir uma aula</a>
+        <p id="review-storage-warning" class="review-storage-warning" role="status" hidden>Não foi possível salvar neste navegador. As marcações podem se perder ao fechar esta página.</p>
+      </div>
+    </article>
+  </div>
+</section>`;
 
 const searchDocs = [];
 const rendered = await Promise.all(lessons.map(async (lesson, index) => {
@@ -138,6 +163,17 @@ const rendered = await Promise.all(lessons.map(async (lesson, index) => {
   if (lesson.id === 'aula-11') reference = { title: 'British Council · Past simple', url: 'https://learnenglish.britishcouncil.org/free-resources/grammar/english-grammar-reference/past-simple' };
   if (['aula-03', 'aula-04', 'material-preposicoes'].includes(lesson.id)) reference = { title: 'British Council · Prepositions of time', url: 'https://learnenglish.britishcouncil.org/grammar/a1-a2-grammar/prepositions-of-time-at-in-on' };
   const references = reference ? `<p class="references">Consulta: <a href="${reference.url}" target="_blank" rel="noreferrer">${reference.title}</a>.</p>` : '';
+  const spacedReview = lesson.group === 'apoio' ? '' : `<section class="spaced-review" data-review-panel data-review-lesson="${lesson.id}" aria-labelledby="${lesson.id}-spaced-review-title">
+          <p class="spaced-review-kicker">Revisão espaçada</p>
+          <h2 id="${lesson.id}-spaced-review-title">Como foi sua lembrança?</h2>
+          <p class="spaced-review-help" data-review-state>Depois de revisar, escolha a opção que melhor descreve sua lembrança.</p>
+          <div class="spaced-review-choices" role="group" aria-label="Avalie como lembrou o conteúdo">
+            <button type="button" data-review-rating="forgot"><span>Esqueci</span><small>volta a 1 dia</small></button>
+            <button type="button" data-review-rating="hard"><span>Com esforço</span><small>repete o intervalo</small></button>
+            <button type="button" data-review-rating="good"><span>Lembrei bem</span><small>avança uma etapa</small></button>
+          </div>
+          <p class="spaced-review-next" data-review-next></p>
+        </section>`;
   // Keep the Markdown in the standalone HTML so copying also works offline.
   const markdown = [
     `# ${lesson.title}`,
@@ -155,7 +191,7 @@ const rendered = await Promise.all(lessons.map(async (lesson, index) => {
     reference ? `Consulta: [${reference.title}](${reference.url}).` : '',
   ].filter(Boolean).join('\n\n') + '\n';
   const adjacentLink = (item, next) => `<a class="page-nav-link${next ? ' next' : ''}" href="#${item.id}">${!next ? icon('back') : ''}<div><small>${next ? 'Próxima página' : 'Página anterior'}</small><p>${item.number} · ${escape(item.nav)}</p></div>${next ? icon('arrow') : ''}</a>`;
-  return `<section class="lesson-pane" id="${lesson.id}" data-title="${escape(lesson.title)}" data-label="${label}" data-group="${escape(group.title)}"${index ? ' hidden' : ''} aria-labelledby="${lesson.id}-title">
+  return `<section class="lesson-pane" id="${lesson.id}" data-title="${escape(lesson.title)}" data-label="${label}" data-group="${escape(group.title)}" data-reviewable="${lesson.group !== 'apoio'}" data-date="${escape(lesson.date)}"${index ? ' hidden' : ''} aria-labelledby="${lesson.id}-title">
   <script type="application/json" class="lesson-markdown">${JSON.stringify(markdown).replace(/</g, '\\u003c')}</script>
   <div class="lesson-layout">
     <article class="paper">
@@ -166,7 +202,7 @@ const rendered = await Promise.all(lessons.map(async (lesson, index) => {
         ${lesson.review ? `<section class="review-callout" aria-label="Prática de revisão"><h2>${icon('pencil')} Agora, com as suas palavras</h2><p>${escape(lesson.review)}</p></section>` : ''}
         ${lesson.correction ? `<aside class="correction" aria-label="Ajuste das anotações"><strong>${icon('info')} Atenção na revisão</strong><p>${escape(lesson.correction)}</p></aside>` : ''}
         <details class="original-notes" id="${lesson.id}-anotacoes"${lesson.showOriginal ? ' open' : ''}><summary>${icon('book')} Anotações originais <span class="source-label">${lesson.group === 'apoio' ? 'Atividades e respostas' : lesson.shortDate}</span><span class="chevron">${icon('chevron')}</span></summary><p class="source-caption">Registro da aula, com rascunhos e respostas da época. Consulte os ajustes da revisão acima.<br>Fonte: ${escape(lesson.source)}</p><div class="prose source-content">${original}</div></details>
-        ${references}
+${references}${spacedReview}
       </div>
     </article>
     <aside class="reading-toc" aria-label="Nesta página"><p class="toc-heading">Nesta página</p><nav class="toc-list" aria-label="Seções de ${escape(label)}">${toc.map(entry => `<a href="#${entry.id}">${entry.title}</a>`).join('')}<a href="#${lesson.id}-anotacoes">Anotações originais</a></nav>${related.length ? `<div class="related"><p class="toc-heading">Continue o estudo</p>${related.map(item => `<a href="#${item.id}">${icon('arrow')}<span>${escape(item.nav)}</span></a>`).join('')}</div>` : ''}<p class="toc-folio" aria-hidden="true">${lesson.number}</p><p class="text-xs leading-relaxed text-muted">${group.description}</p></aside>
@@ -177,7 +213,7 @@ const rendered = await Promise.all(lessons.map(async (lesson, index) => {
 let html = await readFile(join(root, 'src/template.html'), 'utf8');
 const templateValues = { 'lesson-summary': lessonSummary, 'support-summary': supportSummary, period, years };
 html = html.replace(/\{\{(lesson-summary|support-summary|period|years)\}\}/g, (_, key) => escape(templateValues[key]));
-html = html.replace('{{navigation}}', navigation).replace('{{lessons}}', rendered.join('\n')).replace(/\{\{icon-([a-z]+)\}\}/g, (_, name) => icon(name));
+html = html.replace('{{navigation}}', navigation).replace('{{lessons}}', [reviewDashboard, ...rendered].join('\n')).replace(/\{\{icon-([a-z]+)\}\}/g, (_, name) => icon(name));
 await mkdir(join(root, '.build'), { recursive: true });
 await writeFile(join(root, '.build/content.html'), html);
 const cli = resolve(root, 'node_modules/@tailwindcss/cli/dist/index.mjs');

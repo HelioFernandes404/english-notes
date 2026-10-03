@@ -8,6 +8,8 @@ Use o índice para mudar de página, os links “Nesta página” para navegar n
 
 Use **Copiar Markdown**, no topo, para copiar a página atual e colar em um editor, chat ou aplicativo de notas. A cópia inclui título, informações da aula, revisão, exemplos, tabelas, exercícios, ajustes e anotações originais (mesmo recolhidas), além das referências. Funciona também ao abrir o `index.html` local, sem internet. Em telas menores, o botão aparece como um ícone de cópia; uma mensagem confirma o resultado.
 
+Use **Revisões**, no índice, para acompanhar as aulas vencidas e as próximas datas. Ao fim de uma aula, escolha **Esqueci**, **Com esforço** ou **Lembrei bem**: esquecer reinicia em 1 dia, esforço repete o intervalo atual e lembrar bem avança pela sequência de 1, 3, 7, 14 e 30 dias. Depois, a revisão se repete mensalmente. A primeira marcação de uma aula agenda a próxima para o dia seguinte. As marcações ficam no armazenamento local deste navegador; materiais de apoio não entram na fila.
+
 Use **Tela cheia**, no topo, para ampliar a leitura da aula. O índice fica disponível pelo botão de menu; a navegação entre páginas e a impressão continuam acessíveis. Para voltar, clique em **Sair da tela cheia** ou pressione **Esc**. Se o navegador não permitir tela cheia, a aula usa a visualização ampliada dentro da própria janela. No celular, os botões aparecem como ícones.
 
 ## Atualizar o caderno

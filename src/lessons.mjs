@@ -94,7 +94,7 @@ Escreva sempre **I** em maiúscula. Revise palavras como **solutions** e **light
 As anotações originais registram observações feitas em aula sobre a escrita. Elas não devem ser tratadas como uma avaliação clínica.
 `,
     review: 'Escreva onde você trabalha, a que horas começa sua daily e em qual dia costuma fazer deploy.',
-    correction: '“In the bathroom” e “in Alphaville” corrigem exemplos das notas. O tipo de veículo ajuda a memorizar on/in, mas a distinção não é simplesmente público versus privado.'
+    correction: '“In the bathroom” e “in Alphaville” corrigem exemplos das notas. O tipo de veículo ajuda a memorizar on/in, mas a distinção não é simplesmente público versus privado.', materials: ['material-preposicoes']
   },
   {
     id: 'aula-03', number: '03', date: '06 AGO 2026', shortDate: '06/08', group: 'fundamentos',
@@ -137,7 +137,7 @@ Na fala natural, uma consoante final pode se ligar à vogal seguinte: **is‿in*
 O projeto fictício **Compass**, mencionado na aula, serve de contexto para falar sobre trabalho remoto e oportunidades no exterior.
 `,
     review: 'Leia em voz alta: “I think the team will finish the task by Thursday.” Depois crie uma frase com in e outra com by.',
-    correction: 'TH representa dois sons, não um só. Em software, prefira “in VS Code”. On/in nos transportes são padrões de uso, não uma regra sobre poder caminhar no veículo.'
+    correction: 'TH representa dois sons, não um só. Em software, prefira “in VS Code”. On/in nos transportes são padrões de uso, não uma regra sobre poder caminhar no veículo.', materials: ['material-preposicoes']
   },
   {
     id: 'aula-04', number: '04', date: '11 AGO 2026', shortDate: '11/08', group: 'presente',
@@ -191,7 +191,7 @@ Use **at the weekend** no inglês britânico e **on the weekend** no americano. 
 Pratique **dress → dressed**, sem acrescentar uma sílaba “éd”: **dressed** termina com /t/. Compare **kitchen** e **chicken**. A pronúncia de **our** varia com o sotaque e a ênfase.
 `,
     review: 'Descreva três hábitos seus e três de alguém da sua família. Inclua always, sometimes e never.',
-    correction: '“Seven and a half” não é a forma usual de dizer 7:30. Os horários em 24 horas também existem em inglês.', related: ['material-rotina']
+    correction: '“Seven and a half” não é a forma usual de dizer 7:30. Os horários em 24 horas também existem em inglês.', materials: ['material-rotina']
   },
   {
     id: 'aula-05', number: '05', date: '13 AGO 2026', shortDate: '13/08', group: 'presente',
@@ -241,7 +241,7 @@ As etiquetas V1–V5 são a convenção usada nas aulas. A forma **-ing** pode t
 **Lunch** termina com /tʃ/; **finish**, com /ʃ/. **Work out** é o verbo “treinar”; **workout** é o substantivo “treino”. **Five o'clock** indica cinco horas em ponto.
 `,
     review: 'Transforme “She deploys the update” em uma negativa e em uma pergunta.',
-    correction: '“Apenas um verbo pode ser conjugado em uma frase” é uma simplificação excessiva. A regra relevante é does + verbo base. O verbo be tem estruturas próprias.'
+    correction: '“Apenas um verbo pode ser conjugado em uma frase” é uma simplificação excessiva. A regra relevante é does + verbo base. O verbo be tem estruturas próprias.', materials: ['material-rotina']
   },
   {
     id: 'aula-06', number: '06', date: '17 AGO 2026', shortDate: '17/08', group: 'presente',
@@ -283,7 +283,7 @@ Observe que **wake** fica na forma base depois de **do/does**.
 **9 a.m.** indica nove da manhã; **9 p.m.**, nove da noite. **Noon** é meio-dia; **midnight**, meia-noite. O formato de 24 horas também é usado, especialmente em horários oficiais e contextos técnicos.
 `,
     review: 'Complete em voz alta: “She ___ (study), he ___ (play), our manager ___ (have) a meeting.” Depois transforme cada frase em pergunta.',
-    correction: 'Não é todo sujeito singular que recebe -s: “I work” e “you work” também podem ser singulares. A regra é para a terceira pessoa.', related: ['material-rotina']
+    correction: 'Não é todo sujeito singular que recebe -s: “I work” e “you work” também podem ser singulares. A regra é para a terceira pessoa.', materials: ['material-rotina']
   },
   {
     id: 'aula-07', number: '07', date: '18 AGO 2026', shortDate: '18/08', group: 'presente',
@@ -331,7 +331,7 @@ Em **“Does your team do code reviews?”**, **does** é o auxiliar da pergunta
 “What do you usually eat for breakfast?” → “I usually eat eggs and bread.”
 `,
     review: 'Descreva sua rotina antes da daily, durante um code review e depois do expediente.',
-    correction: 'A posição do advérbio muda com be. A concordância de substantivos coletivos como team pode variar com o contexto e a variedade do inglês.', related: ['material-dev']
+    correction: 'A posição do advérbio muda com be. A concordância de substantivos coletivos como team pode variar com o contexto e a variedade do inglês.', materials: ['material-dev']
   },
   {
     id: 'aula-08', number: '08', date: '20 AGO 2026', shortDate: '20/08', group: 'presente',
@@ -384,7 +384,7 @@ Pense em três ações para cada situação trabalhada na aula:
 O dever de casa registrado foi revisar os números de **1 a 100**, com foco na pronúncia.
 `,
     review: 'Explique três coisas que você faz antes de um deploy. Depois responda: “Do you usually run tests before deploying?”',
-    correction: 'Para roupas, use wear: “I wear a T-shirt and shorts”. “Use” significa usar algo como ferramenta ou recurso, não vestir.', related: ['material-dev']
+    correction: 'Para roupas, use wear: “I wear a T-shirt and shorts”. “Use” significa usar algo como ferramenta ou recurso, não vestir.', materials: ['material-dev']
   },
   {
     id: 'aula-09', number: '09', date: '27 AGO 2026', shortDate: '27/08', group: 'presente',
@@ -430,7 +430,7 @@ Este modelo usa o rascunho do material de apoio. Os horários diferem do resumo 
 Para objetos, **it** é a escolha neutra. Usar **he/she** para um carro, por exemplo, é personificação e não uma regra geral de “estima”.
 `,
     review: 'Escreva cinco frases sobre sua rotina. Inclua um advérbio de frequência, before, after e in the evening.',
-    correction: 'Percentuais de frequência são aproximações didáticas. “In the evening” e “while I watch videos” corrigem construções do rascunho.', related: ['material-dev']
+    correction: 'Percentuais de frequência são aproximações didáticas. “In the evening” e “while I watch videos” corrigem construções do rascunho.', materials: ['material-dev']
   },
   {
     id: 'aula-10', number: '10', date: '01 SET 2026', shortDate: '01/09', group: 'passado',
@@ -482,7 +482,7 @@ Percentuais de origem do vocabulário dependem do dicionário e do método de co
 A leitura **“Emma's story”** está no material de apoio **“It Wasn’t My Day”**, com o texto original e a atividade de Past Simple.
 `,
     review: 'Escreva três frases sobre uma conquista no trabalho. Diga quando aconteceu e o que você fez depois.',
-    correction: 'Prefira “at the weekend” (britânico), “on the weekend” (americano) ou “over the weekend”, em vez de “at my weekend”. Search for também pode significar procurar.'
+    correction: 'Prefira “at the weekend” (britânico), “on the weekend” (americano) ou “over the weekend”, em vez de “at my weekend”. Search for também pode significar procurar.', materials: ['material-it-wasnt-my-day']
   },
   {
     id: 'aula-11', number: '11', date: '03 SET 2026', shortDate: '03/09', group: 'passado',
@@ -551,7 +551,7 @@ A duplicação depende também da **tonicidade** e da terminação: **prefer →
 O exercício complementar de Past Simple está no material de apoio **“It Wasn’t My Day”**.
 `,
     review: 'Conte como foi sua última entrega. Use um verbo regular, dois irregulares, uma negativa com didn’t e uma pergunta com did.',
-    correction: 'A regra não é simplesmente was = singular / were = plural: “you were” vale também para uma pessoa. Nem todo verbo CVC dobra a consoante.'
+    correction: 'A regra não é simplesmente was = singular / were = plural: “you were” vale também para uma pessoa. Nem todo verbo CVC dobra a consoante.', materials: ['material-it-wasnt-my-day']
   },
   {
     id: 'aula-12', number: '12', date: '10 SET 2026', shortDate: '10/09', group: 'passado',
@@ -635,7 +635,7 @@ As tarefas registradas foram **corrigir o dever de casa explicando cada ajuste**
 `,
     review: 'Escreva três frases sobre seu último dia de trabalho usando verbos irregulares desta aula. Transforme uma delas em negativa. Depois explique por que prefer vira preferred e order vira ordered.',
     correction: 'Nas notas, “know → new” deve ser “know → knew”. Travel mantém a primeira sílaba tônica no inglês britânico e no americano; travelled é uma diferença de grafia. Hurt e put ainda recebem -s na terceira pessoa do presente.',
-    related: ['aula-11', 'material-it-wasnt-my-day']
+    related: ['aula-11'], materials: ['material-it-wasnt-my-day']
   },
   {
     id: 'aula-13', number: '13', date: '15 SET 2026', shortDate: '15/09', group: 'passado',
@@ -978,8 +978,7 @@ Este material reúne a tabela e os exemplos usados nas aulas 02 e 03. O conteúd
 - **In** também aparece com meses, anos e períodos: **in August**, **in 2026**, **in the morning**.
 - **By car** indica o meio; **in the car**, a posição. Transporte público versus privado não é uma regra geral.
 `,
-    correction: 'Leia os exemplos originais junto com os ajustes acima.', showOriginal: true,
-    related: ['aula-02', 'aula-03']
+    correction: 'Leia os exemplos originais junto com os ajustes acima.', showOriginal: true
   },
   {
     id: 'material-rotina', number: 'B', date: '11 AGO 2026', shortDate: '11/08', group: 'apoio',
@@ -1003,8 +1002,7 @@ O material original contém exercícios e respostas anotadas em aula. Releia a r
 
 O quadro de conjugação deve ser lido assim: **I/you/we/they + base**, **he/she/it + -s/-es/-ies**. Depois de **do/does/don't/doesn't**, use a forma base.
 `,
-    correction: 'O material original preserva os rascunhos. Use a tabela acima para não memorizar as formas incorretas.', showOriginal: true,
-    related: ['aula-04', 'aula-05', 'aula-06']
+    correction: 'O material original preserva os rascunhos. Use a tabela acima para não memorizar as formas incorretas.', showOriginal: true
   },
   {
     id: 'material-dev', number: 'C', date: '18 AGO 2026', shortDate: '18/08', group: 'apoio',
@@ -1029,8 +1027,7 @@ O quadro de conjugação deve ser lido assim: **I/you/we/they + base**, **he/she
 
 **Always, usually, often, sometimes, seldom, rarely, never** expressam frequência. Os percentuais registrados na atividade são aproximações para estudo.
 `,
-    correction: 'As respostas e rasuras originais estão preservadas abaixo. Para um modelo de parágrafo revisado, consulte a aula 09.', showOriginal: true,
-    related: ['aula-07', 'aula-08', 'aula-09']
+    correction: 'As respostas e rasuras originais estão preservadas abaixo. Para um modelo de parágrafo revisado, consulte a aula 09.', showOriginal: true
   },
   {
     id: 'material-it-wasnt-my-day', number: 'D', date: '01 SET 2026', shortDate: '01/09', group: 'apoio',
@@ -1109,7 +1106,6 @@ Com o verbo **be**, não use **did**. Use **was** com I/he/she/it e **were** com
 | where | onde |
 | were | era/estava; éramos/estávamos; eram/estavam |
 `,
-    correction: 'No texto inicial, prefira “I was looking for a promotion”, “I got a promotion” e “over the weekend” (ou “at the weekend”/“on the weekend”). Em “did/didn’t”, use a forma base; com be, use was/were.', showOriginal: true,
-    related: ['aula-10', 'aula-11']
+    correction: 'No texto inicial, prefira “I was looking for a promotion”, “I got a promotion” e “over the weekend” (ou “at the weekend”/“on the weekend”). Em “did/didn’t”, use a forma base; com be, use was/were.', showOriginal: true
   }
 ];

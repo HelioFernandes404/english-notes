@@ -90,6 +90,12 @@ for (const lesson of lessons) {
   for (const relatedId of lesson.related || []) {
     if (!lessons.some(item => item.id === relatedId)) throw new Error(`Referência de estudo inexistente: ${relatedId}`);
   }
+  for (const materialId of lesson.materials || []) {
+    const material = lessons.find(item => item.id === materialId);
+    if (!material) throw new Error(`Material vinculado inexistente: ${materialId}`);
+    if (material.group !== 'apoio' || lesson.group === 'apoio') throw new Error(`Vínculo de material inválido: ${lesson.id} → ${materialId}`);
+  }
+  if (new Set(lesson.materials || []).size !== (lesson.materials || []).length) throw new Error(`Material vinculado repetido: ${lesson.id}`);
 }
 
 const classes = lessons.filter(lesson => lesson.group !== 'apoio');
@@ -146,14 +152,37 @@ const reviewDashboard = `<section class="lesson-pane review-dashboard" id="revis
   </div>
 </section>`;
 
+const sources = new Map(await Promise.all(lessons.map(async lesson => [lesson.id, await readFile(join(root, lesson.source), 'utf8')])));
+const labelOf = lesson => lesson.group === 'apoio' ? `Material ${lesson.number}` : `Aula ${lesson.number}`;
+// Lessons declare their materials; each material lists the lessons that used it.
+const linkedPages = lesson => lesson.group === 'apoio'
+  ? lessons.filter(item => item.materials?.includes(lesson.id))
+  : (lesson.materials || []).map(id => lessons.find(item => item.id === id));
+const reviewMarkdown = lesson => [
+  `# ${lesson.title}`,
+  `${labelOf(lesson)} · ${lesson.date} · ${groups.find(group => group.id === lesson.group).title}`,
+  lesson.description,
+  `Tags: ${lesson.tags.join(', ')}`,
+  `## Para guardar\n\n${lesson.takeaway}`,
+  lesson.content.trim(),
+  lesson.review ? `## Agora, com as suas palavras\n\n${lesson.review}` : '',
+  lesson.correction ? `## Atenção na revisão\n\n${lesson.correction}` : '',
+  '## Anotações originais',
+  'Registro da aula, com rascunhos e respostas da época. Consulte os ajustes da revisão acima.',
+  `Fonte: ${lesson.source}`,
+  sources.get(lesson.id).trim(),
+];
+
 const searchDocs = [];
 const rendered = await Promise.all(lessons.map(async (lesson, index) => {
   const group = groups.find(group => group.id === lesson.group);
   const toc = [];
   const body = renderMarkdown(lesson.content, lesson.id, toc);
-  const sourceMarkdown = await readFile(join(root, lesson.source), 'utf8');
+  const sourceMarkdown = sources.get(lesson.id);
   const original = renderMarkdown(normalizeNotes(sourceMarkdown), `${lesson.id}-original`);
-  const label = lesson.group === 'apoio' ? `Material ${lesson.number}` : `Aula ${lesson.number}`;
+  const label = labelOf(lesson);
+  const linked = linkedPages(lesson);
+  const isMaterial = lesson.group === 'apoio';
   const searchBase = { lesson: lesson.id, order: index, label, title: lesson.title, group: group.id, tags: lesson.tags.join(' ') };
   searchDocs.push({ ...searchBase, id: `${lesson.id}:intro`, target: `${lesson.id}-title`, heading: '', text: [lesson.description, lesson.takeaway, lesson.review, lesson.correction].filter(Boolean).join(' '), original: false });
   searchSections(body, `${lesson.id}-title`).forEach((section, n) => searchDocs.push({ ...searchBase, ...section, id: `${lesson.id}:body:${n}`, original: false }));
@@ -175,29 +204,25 @@ const rendered = await Promise.all(lessons.map(async (lesson, index) => {
           <p class="spaced-review-next" data-review-next></p>
         </section>`;
   // Keep the Markdown in the standalone HTML so copying also works offline.
+  const linkLine = linked.length ? `${isMaterial ? 'Usado em' : 'Material da aula'}: ${linked.map(item => `${labelOf(item)} · ${item.title}${item.shortDate ? ` (${item.shortDate})` : ''}`).join('; ')}` : '';
+  // A lesson's copy carries its linked materials in full, so the class and its activities travel together.
   const markdown = [
-    `# ${lesson.title}`,
-    `${label} · ${lesson.date} · ${group.title}`,
-    lesson.description,
-    `Tags: ${lesson.tags.join(', ')}`,
-    `## Para guardar\n\n${lesson.takeaway}`,
-    lesson.content.trim(),
-    lesson.review ? `## Agora, com as suas palavras\n\n${lesson.review}` : '',
-    lesson.correction ? `## Atenção na revisão\n\n${lesson.correction}` : '',
-    '## Anotações originais',
-    'Registro da aula, com rascunhos e respostas da época. Consulte os ajustes da revisão acima.',
-    `Fonte: ${lesson.source}`,
-    sourceMarkdown.trim(),
+    ...reviewMarkdown(lesson).slice(0, 4),
+    linkLine,
+    ...reviewMarkdown(lesson).slice(4),
     reference ? `Consulta: [${reference.title}](${reference.url}).` : '',
+    ...(isMaterial ? [] : linked.flatMap(material => ['---', ...reviewMarkdown(material)])),
   ].filter(Boolean).join('\n\n') + '\n';
+  const linkedCard = linked.length ? `<nav class="linked-pages" aria-label="${isMaterial ? 'Aulas que usaram este material' : 'Material da aula'}"><p class="linked-label">${icon('book')} ${isMaterial ? 'Usado nas aulas' : 'Material da aula'}</p>${linked.map(item => `<a href="#${item.id}"><span class="linked-num">${labelOf(item)}${item.shortDate ? ` · ${item.shortDate}` : ''}</span><span class="linked-title">${escape(item.title)}</span>${icon('arrow')}</a>`).join('')}</nav>` : '';
   const adjacentLink = (item, next) => `<a class="page-nav-link${next ? ' next' : ''}" href="#${item.id}">${!next ? icon('back') : ''}<div><small>${next ? 'Próxima página' : 'Página anterior'}</small><p>${item.number} · ${escape(item.nav)}</p></div>${next ? icon('arrow') : ''}</a>`;
-  return `<section class="lesson-pane" id="${lesson.id}" data-title="${escape(lesson.title)}" data-label="${label}" data-group="${escape(group.title)}" data-reviewable="${lesson.group !== 'apoio'}" data-date="${escape(lesson.date)}"${index ? ' hidden' : ''} aria-labelledby="${lesson.id}-title">
+  return `<section class="lesson-pane" id="${lesson.id}" data-title="${escape(lesson.title)}" data-label="${label}" data-group="${escape(group.title)}" data-reviewable="${lesson.group !== 'apoio'}" data-date="${escape(lesson.date)}"${!isMaterial && linked.length ? ` data-materials="${linked.length}"` : ''}${index ? ' hidden' : ''} aria-labelledby="${lesson.id}-title">
   <script type="application/json" class="lesson-markdown">${JSON.stringify(markdown).replace(/</g, '\\u003c')}</script>
   <div class="lesson-layout">
     <article class="paper">
-      <header class="paper-header"><div class="lesson-kicker">${label.toUpperCase()} <span class="mx-1 text-slate-300">/</span> ${lesson.date}</div><h1 id="${lesson.id}-title" class="lesson-title" tabindex="-1">${escape(lesson.title)}</h1><p class="description">${escape(lesson.description)}</p><div class="mt-5 flex flex-wrap items-center gap-2">${lesson.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}<span class="ml-auto flex items-center gap-1.5 text-xs text-muted">${icon('book')} ${lesson.group === 'apoio' ? 'Atividades da aula' : 'Revisão da aula'}</span></div></header>
+      <header class="paper-header"><div class="lesson-kicker">${label.toUpperCase()} <span class="mx-1 text-slate-300">/</span> ${lesson.date}</div><h1 id="${lesson.id}-title" class="lesson-title" tabindex="-1">${escape(lesson.title)}</h1><p class="description">${escape(lesson.description)}</p><div class="mt-5 flex flex-wrap items-center gap-2">${lesson.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}<span class="ml-auto flex items-center gap-1.5 text-xs text-muted">${icon('book')} ${isMaterial ? 'Atividades da aula' : 'Revisão da aula'}</span></div></header>
       <div class="paper-body">
         <div class="takeaway"><div class="takeaway-label">${icon('bulb')} Para guardar</div><p>${escape(lesson.takeaway)}</p></div>
+        ${linkedCard}
         <div class="prose">${body}</div>
         ${lesson.review ? `<section class="review-callout" aria-label="Prática de revisão"><h2>${icon('pencil')} Agora, com as suas palavras</h2><p>${escape(lesson.review)}</p></section>` : ''}
         ${lesson.correction ? `<aside class="correction" aria-label="Ajuste das anotações"><strong>${icon('info')} Atenção na revisão</strong><p>${escape(lesson.correction)}</p></aside>` : ''}

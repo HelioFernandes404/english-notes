@@ -69,7 +69,8 @@
         copyWithSelection(markdown);
       }
       copyLabel.textContent = 'Copiado!';
-      copyStatus.textContent = `Página copiada em Markdown (${page.dataset.label}). Anotações originais incluídas.`;
+      const materials = Number(page.dataset.materials || 0);
+      copyStatus.textContent = `Página copiada em Markdown (${page.dataset.label}). Inclui anotações originais${materials ? ` e ${materials === 1 ? 'o material da aula' : `${materials} materiais da aula`}` : ''}.`;
     } catch {
       copyLabel.textContent = 'Tentar novamente';
       copyStatus.dataset.error = 'true';

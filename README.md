@@ -29,9 +29,11 @@ npm run build
 
 O processo gera `index.html` e uma cópia em `dist/index.html`. Para adicionar uma aula, acrescente o Markdown na pasta adequada e um registro em `src/lessons.mjs`. Use datas no formato `DD MMM AAAA`, por exemplo `08 SET 2026`, com abreviações dos meses em português. Uma nova pasta temática deve ser cadastrada em `sourceDirectories`, no mesmo arquivo; os capítulos visuais são definidos em `groups`.
 
-O build calcula os totais e o período automaticamente e acusa materiais não incluídos, fontes duplicadas ou inexistentes, grupos inválidos, datas inválidas, referências de estudo inexistentes, destinos de links inexistentes e IDs duplicados.
+O conteúdo usado em uma aula (atividade, texto) entra em `conteudo-das-aulas/` como material de apoio. Para ligar os dois, informe na aula `materials: ['material-…']`. A aula mostra o cartão **Material da aula**, o material mostra **Usado nas aulas**, e **Copiar Markdown** da aula inclui o material completo. Use `related` apenas para indicar outra aula a estudar.
 
-Para pedir essa atualização a um agente, use `$atualizar-caderno-ingles` ou diga “adicione as novas aulas ao caderno”. A skill está instalada nas skills pessoais e é referenciada pelo `AGENTS.md` deste projeto. Ela orienta o agente durante a tarefa; não é um monitor de pastas em segundo plano.
+O build calcula os totais e o período automaticamente e acusa materiais não incluídos, fontes duplicadas ou inexistentes, grupos inválidos, datas inválidas, referências de estudo inexistentes, materiais vinculados inválidos, destinos de links inexistentes e IDs duplicados.
+
+Para pedir essa atualização a um agente, use `$atualizar-caderno-ingles` ou diga “adicione as novas aulas ao caderno”. A skill fica em `.claude/skills/atualizar-caderno-ingles/` e é referenciada pelo `AGENTS.md` deste projeto. Ela orienta o agente durante a tarefa; não é um monitor de pastas em segundo plano.
 
 Para uma prévia local opcional, execute `npm run dev` e abra o endereço informado. Não é necessário manter um servidor para usar o arquivo HTML.
 
